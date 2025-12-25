@@ -14,48 +14,63 @@
   <h1>IGNOU Solved Assignments</h1>
   <p>Free & Paid Solved Assignments – MA | BA | B.Ed | Diploma</p>
   </header>
-  
+  <!-- ===== PROGRAMME CARDS SECTION ===== -->
+<section class="programme-section">
+  <h2>Select Programme</h2>
 
-  <div class="container">
-<select id="levelFilter">
-  <option value="">Select Programme</option>
-  <option value="MA">MA</option>
-  <option value="BA">BA</option>
-  <option value="BED">B.Ed</option>
-  <option value="DIPLOMA">Diploma</option>
-  <option value="CERTIFICATE">Certificate</option>
-</select>
+  <div class="programme-grid">
+    <div class="programme-card" onclick="selectProgramme('MA')">
+      <h3>MA</h3>
+      <p>Master of Arts</p>
+    </div>
 
-<select id="subjectFilter" disabled>
-  <option value="">Select Subject</option>
-</select>
-    
-    <!-- Search box -->
-    <input 
-      type="text" 
-      id="search" 
-      placeholder="Search Course Code (e.g. MEG01)"
-    >
+    <div class="programme-card" onclick="selectProgramme('BA')">
+      <h3>BA</h3>
+      <p>Bachelor of Arts</p>
+    </div>
 
-    <!-- Session filter -->
-    <select id="sessionFilter">
-      <option value="all">All Sessions</option>
-      <option value="Jan">January</option>
-      <option value="July">July</option>
-    </select>
+    <div class="programme-card" onclick="selectProgramme('BSC')">
+      <h3>BSc</h3>
+      <p>Bachelor of Science</p>
+    </div>
 
-    <!-- Assignment list -->
-    <div id="assignmentList"></div>
-
+    <div class="programme-card" onclick="selectProgramme('DIPLOMA')">
+      <h3>Diploma</h3>
+      <p>All Diploma Courses</p>
+    </div>
   </div>
+</section>
 
-  <footer>
-    © 2025 Assignments Portal
-  </footer>
+<!-- ===== SEARCH & FILTER PANEL ===== -->
+<div class="filter-box">
 
-  <!-- JS files -->
-  <script src="data.js"></script>
-  <script src="script.js"></script>
+  <select id="levelFilter">
+    <option value="">Select Programme</option>
+    <option value="MA">MA</option>
+    <option value="BA">BA</option>
+    <option value="BSC">BSc</option>
+    <option value="BED">B.Ed</option>
+    <option value="DIPLOMA">Diploma</option>
+    <option value="CERTIFICATE">Certificate</option>
+  </select>
 
-</body>
-</html>
+  <select id="subjectFilter" disabled>
+    <option value="">Select Subject</option>
+  </select>
+
+  <input
+    type="text"
+    id="search"
+    placeholder="Search Course Code (e.g. MEG01)"
+  >
+
+  <select id="sessionFilter">
+    <option value="all">All Sessions</option>
+    <option value="Jan">January</option>
+    <option value="July">July</option>
+  </select>
+
+</div>
+
+<!-- ===== ASSIGNMENT RESULT LIST ===== -->
+<div id="assignmentList"></div>
