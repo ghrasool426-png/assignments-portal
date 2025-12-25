@@ -3,6 +3,7 @@ level: "MA"
 level: "BA"
 level: "DIPLOMA"
 const assignments = [
+  
   // ===== MA SUBJECTS (IGNOU) =====
 {
   level: "MA",
