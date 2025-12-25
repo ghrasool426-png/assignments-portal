@@ -4,24 +4,18 @@ const sessionFilter = document.getElementById("sessionFilter");
 const levelFilter = document.getElementById("levelFilter");
 const subjectFilter = document.getElementById("subjectFilter");
 
-/* =========================
-   INITIAL STATE
-========================= */
+// Initial message
 list.innerHTML = `<p style="text-align:center;color:#777;">
   Please select a programme
 </p>`;
 
-/* =========================
-   PROGRAMME CARD CLICK
-========================= */
+// Programme card click
 function selectProgramme(level) {
   levelFilter.value = level;
   loadSubjects(level);
 }
 
-/* =========================
-   LOAD SUBJECTS (MAIN FIX)
-========================= */
+// Load subjects based on level
 function loadSubjects(level) {
   subjectFilter.innerHTML = `<option value="">Select Subject</option>`;
   subjectFilter.disabled = true;
@@ -38,7 +32,7 @@ function loadSubjects(level) {
 
   if (subjects.length === 0) {
     list.innerHTML = `<p style="text-align:center;color:#777;">
-      No subjects available
+      No subjects found
     </p>`;
     return;
   }
@@ -54,9 +48,7 @@ function loadSubjects(level) {
   </p>`;
 }
 
-/* =========================
-   DROPDOWN CHANGE EVENTS
-========================= */
+// Dropdown events
 levelFilter.addEventListener("change", () => {
   loadSubjects(levelFilter.value);
 });
@@ -65,9 +57,7 @@ subjectFilter.addEventListener("change", filterData);
 search.addEventListener("input", filterData);
 sessionFilter.addEventListener("change", filterData);
 
-/* =========================
-   FILTER & RENDER
-========================= */
+// Filter assignments
 function filterData() {
   const level = levelFilter.value;
   const subject = subjectFilter.value;
@@ -91,9 +81,7 @@ function filterData() {
   render(filtered);
 }
 
-/* =========================
-   RENDER CARDS
-========================= */
+// Render cards
 function render(data) {
   list.innerHTML = "";
 
@@ -108,8 +96,7 @@ function render(data) {
     list.innerHTML += `
       <div class="card">
         <b>${item.level} – ${item.programme}</b><br>
-        Course: ${item.course} | Session: ${item.session}
-        <br>
+        Course: ${item.course} | Session: ${item.session}<br>
         <a class="btn" href="${item.file}" target="_blank">Download</a>
       </div>
     `;
