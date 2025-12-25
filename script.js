@@ -65,3 +65,25 @@ function render(data) {
     `;
   });
 }
+function selectProgramme(level) {
+  levelFilter.value = level;
+
+  // Reset subject dropdown
+  subjectFilter.innerHTML = `<option value="">Select Subject</option>`;
+
+  // Get subjects for selected level
+  const subjects = [
+    ...new Set(assignments.filter(a => a.level === level).map(a => a.programme))
+  ];
+
+  // Populate subject dropdown
+  subjects.forEach(sub => {
+    subjectFilter.innerHTML += `<option value="${sub}">${sub}</option>`;
+  });
+
+  subjectFilter.disabled = false;
+
+  // Clear assignment list until subject selected
+  document.getElementById("assignmentList").innerHTML =
+    `<p style="text-align:center;color:#777;">Please select a subject</p>`;
+}
