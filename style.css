@@ -47,3 +47,24 @@ footer {
   background: #eee;
   margin-top: 30px;
 }
+.filter-box {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.filter-box select,
+.filter-box input {
+  margin-bottom: 10px;
+}
+
+.card {
+  border-left: 4px solid #003366;
+}
+
+.card b {
+  font-size: 16px;
+  color: #003366;
+}
