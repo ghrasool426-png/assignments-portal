@@ -68,3 +68,20 @@ footer {
   font-size: 16px;
   color: #003366;
 }
+.main-header {
+  background: linear-gradient(135deg, #0f4c75, #3282b8);
+  color: #fff;
+  padding: 30px 15px;
+  text-align: center;
+}
+
+.main-header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.main-header p {
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.9;
+}
