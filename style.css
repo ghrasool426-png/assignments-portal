@@ -84,4 +84,76 @@ footer {
   margin-top: 8px;
   font-size: 14px;
   opacity: 0.9;
+}.programme-section {
+  margin: 35px 0;
+  text-align: center;
 }
+
+.programme-section h2 {
+  margin-bottom: 20px;
+  color: #0f4c75;
+}
+
+.programme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.programme-card {
+  background: #fff;
+  padding: 20px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.programme-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.programme-card h3 {
+  margin: 0;
+  font-size: 22px;
+  color: #0f4c75;
+}
+
+.programme-card p {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #555;
+}
+
+.filter-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 25px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.filter-box select,
+.filter-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.card {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.07);
+  border-left: 5px solid #0f4c75;
+}
+
+.card b {
+  font-size: 15px;
+  color: #0f4c75;
+}
+
