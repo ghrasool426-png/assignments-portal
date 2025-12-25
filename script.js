@@ -4,54 +4,103 @@ const sessionFilter = document.getElementById("sessionFilter");
 const levelFilter = document.getElementById("levelFilter");
 const subjectFilter = document.getElementById("subjectFilter");
 
-// Initial render (nothing)
-render([]);
+/* =========================
+   INITIAL STATE
+========================= */
+list.innerHTML = `<p style="text-align:center;color:#777;">
+  Please select a programme
+</p>`;
 
-// Populate subjects based on level
-levelFilter.addEventListener("change", () => {
-  const level = levelFilter.value;
+/* =========================
+   PROGRAMME CARD CLICK
+========================= */
+function selectProgramme(level) {
+  levelFilter.value = level;
+  loadSubjects(level);
+}
+
+/* =========================
+   LOAD SUBJECTS (MAIN FIX)
+========================= */
+function loadSubjects(level) {
   subjectFilter.innerHTML = `<option value="">Select Subject</option>`;
   subjectFilter.disabled = true;
-  list.innerHTML = "";
 
   if (!level) return;
 
   const subjects = [
-    ...new Set(assignments.filter(a => a.level === level).map(a => a.programme))
+    ...new Set(
+      assignments
+        .filter(item => item.level === level)
+        .map(item => item.programme)
+    )
   ];
+
+  if (subjects.length === 0) {
+    list.innerHTML = `<p style="text-align:center;color:#777;">
+      No subjects available
+    </p>`;
+    return;
+  }
 
   subjects.forEach(sub => {
     subjectFilter.innerHTML += `<option value="${sub}">${sub}</option>`;
   });
 
   subjectFilter.disabled = false;
+
+  list.innerHTML = `<p style="text-align:center;color:#777;">
+    Please select a subject
+  </p>`;
+}
+
+/* =========================
+   DROPDOWN CHANGE EVENTS
+========================= */
+levelFilter.addEventListener("change", () => {
+  loadSubjects(levelFilter.value);
 });
 
-// Show assignments after subject select
 subjectFilter.addEventListener("change", filterData);
 search.addEventListener("input", filterData);
 sessionFilter.addEventListener("change", filterData);
 
+/* =========================
+   FILTER & RENDER
+========================= */
 function filterData() {
   const level = levelFilter.value;
   const subject = subjectFilter.value;
   const text = search.value.toLowerCase();
   const session = sessionFilter.value;
 
-  const filtered = assignments.filter(a =>
-    (!level || a.level === level) &&
-    (!subject || a.programme === subject) &&
-    a.course.toLowerCase().includes(text) &&
-    (session === "all" || a.session === session)
+  if (!level || !subject) {
+    list.innerHTML = `<p style="text-align:center;color:#777;">
+      Please select programme & subject
+    </p>`;
+    return;
+  }
+
+  const filtered = assignments.filter(item =>
+    item.level === level &&
+    item.programme === subject &&
+    item.course.toLowerCase().includes(text) &&
+    (session === "all" || item.session === session)
   );
 
   render(filtered);
 }
 
+/* =========================
+   RENDER CARDS
+========================= */
 function render(data) {
   list.innerHTML = "";
+
   if (data.length === 0) {
-    list.innerHTML = `<p style="text-align:center;color:#777;">No assignments found</p>`;
+    list.innerHTML = `<p style="text-align:center;color:#777;">
+      No assignments found
+    </p>`;
     return;
   }
 
@@ -60,30 +109,9 @@ function render(data) {
       <div class="card">
         <b>${item.level} – ${item.programme}</b><br>
         Course: ${item.course} | Session: ${item.session}
+        <br>
         <a class="btn" href="${item.file}" target="_blank">Download</a>
       </div>
     `;
   });
-}
-function selectProgramme(level) {
-  levelFilter.value = level;
-
-  // Reset subject dropdown
-  subjectFilter.innerHTML = `<option value="">Select Subject</option>`;
-
-  // Get subjects for selected level
-  const subjects = [
-    ...new Set(assignments.filter(a => a.level === level).map(a => a.programme))
-  ];
-
-  // Populate subject dropdown
-  subjects.forEach(sub => {
-    subjectFilter.innerHTML += `<option value="${sub}">${sub}</option>`;
-  });
-
-  subjectFilter.disabled = false;
-
-  // Clear assignment list until subject selected
-  document.getElementById("assignmentList").innerHTML =
-    `<p style="text-align:center;color:#777;">Please select a subject</p>`;
 }
