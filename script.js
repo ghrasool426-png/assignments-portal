@@ -16,8 +16,12 @@ function selectProgramme(level) {
   loadSubjects(level);
 }
 
-// Load subjects based on level
 function loadSubjects(level) {
+  const subjectSection = document.getElementById("subjectSection");
+  const subjectGrid = document.getElementById("subjectGrid");
+
+  subjectGrid.innerHTML = "";
+  subjectSection.style.display = "none";
   subjectFilter.innerHTML = `<option value="">Select Subject</option>`;
   subjectFilter.disabled = true;
 
@@ -26,8 +30,8 @@ function loadSubjects(level) {
   const subjects = [
     ...new Set(
       assignments
-        .filter(item => item.level === level)
-        .map(item => item.programme)
+        .filter(item => item.level.trim() === level.trim())
+        .map(item => item.programme.trim())
     )
   ];
 
@@ -39,10 +43,21 @@ function loadSubjects(level) {
   }
 
   subjects.forEach(sub => {
+    const div = document.createElement("div");
+    div.className = "subject-card";
+    div.innerHTML = `<h3>${sub}</h3>`;
+    div.onclick = () => {
+      subjectFilter.value = sub;
+      filterData();
+    };
+    subjectGrid.appendChild(div);
+
+    // Also fill dropdown (optional)
     subjectFilter.innerHTML += `<option value="${sub}">${sub}</option>`;
   });
 
   subjectFilter.disabled = false;
+  subjectSection.style.display = "block";
 
   list.innerHTML = `<p style="text-align:center;color:#777;">
     Please select a subject
