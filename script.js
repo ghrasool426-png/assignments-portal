@@ -1,3 +1,4 @@
+alert("SCRIPT LOADED");
 const list = document.getElementById("assignmentList");
 const search = document.getElementById("search");
 const sessionFilter = document.getElementById("sessionFilter");
