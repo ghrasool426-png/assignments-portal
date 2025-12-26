@@ -29,10 +29,10 @@
 
   <p class="seo-text" id="seoText"></p>
 
-  <!-- YEAR WISE CONTENT -->
+  <!-- YEAR WISE CONTENT (MA ONLY) -->
   <div id="yearInfo"></div>
 
-  <!-- NON-MA LIST -->
+  <!-- OTHER PROGRAMMES -->
   <div id="assignmentList"></div>
 
 </section>
@@ -64,10 +64,10 @@
       `1st Year & 2nd Year – ${programme} ${subject}`;
 
     document.getElementById("seoText").innerText =
-      `Get IGNOU ${programme} ${subject} solved assignments for both 1st and 2nd year sessions.`;
+      `Get IGNOU ${programme} ${subject} solved assignments for both 1st and 2nd year.`;
   }
 
-  /* ===== MA → ONLY YEAR WISE (NO COURSE CARDS) ===== */
+  /* ================= MA ONLY ================= */
   if (programme === "MA") {
 
     yearInfo.innerHTML = `
@@ -93,37 +93,36 @@
         </a>
       </div>
     `;
-
-    // 🔥 IMPORTANT: STOP HERE (no cards below)
-    return;
   }
 
-  /* ===== NON-MA (BA / BSc etc) ===== */
-  const filtered = assignments.filter(a =>
-    a.level === programme &&
-    a.programme === subject &&
-    a.course !== "TEMP"
-  );
-
-  if (!programme || !subject) {
-    list.innerHTML =
-      "<p style='text-align:center;color:#777;'>Please select programme and subject.</p>";
-  }
-  else if (filtered.length === 0) {
-    list.innerHTML =
-      "<p style='text-align:center;color:#777;'>Assignments will be updated soon.</p>";
-  }
+  /* ================= NON-MA (BA / BSc etc) ================= */
   else {
-    filtered.forEach(item => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <b>${item.course}</b><br>
-        Session: ${item.session}<br><br>
-        <a class="btn" href="${item.file}" target="_blank">Download PDF</a>
-      `;
-      list.appendChild(card);
-    });
+    const filtered = assignments.filter(a =>
+      a.level === programme &&
+      a.programme === subject &&
+      a.course !== "TEMP"
+    );
+
+    if (!programme || !subject) {
+      list.innerHTML =
+        "<p style='text-align:center;color:#777;'>Please select programme and subject.</p>";
+    }
+    else if (filtered.length === 0) {
+      list.innerHTML =
+        "<p style='text-align:center;color:#777;'>Assignments will be updated soon.</p>";
+    }
+    else {
+      filtered.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <b>${item.course}</b><br>
+          Session: ${item.session}<br><br>
+          <a class="btn" href="${item.file}" target="_blank">Download PDF</a>
+        `;
+        list.appendChild(card);
+      });
+    }
   }
 </script>
 
