@@ -1,33 +1,61 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Select Subject</title>
+
+  <!-- Dynamic SEO Title -->
+  <title id="seoTitle">IGNOU Subjects</title>
+
+  <!-- Dynamic SEO Description -->
+  <meta name="description" id="seoDescription"
+        content="Browse IGNOU subject-wise solved assignments for MA, BA, BSc and Diploma programmes.">
+
+  <!-- Mobile -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://ghrasool426-png.github.io/assignments-portal/subjects.html">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- ===== HEADER ===== -->
 <header class="main-header">
   <h1 id="programmeTitle">Subjects</h1>
+  <p id="programmeSubtitle">Select your subject to view assignments</p>
 </header>
 
+<!-- ===== SUBJECT SECTION ===== -->
 <section class="subject-section">
+  <h2>Select Subject</h2>
   <div id="subjectGrid" class="subject-grid"></div>
 </section>
 
-<div id="assignmentList"></div>
-
+<!-- ===== DATA ===== -->
 <script src="data.js"></script>
 
 <script>
   const params = new URLSearchParams(window.location.search);
-  const programme = params.get("programme");
+  const programme = params.get("programme") || "IGNOU";
+
+  // ===== SEO + HEADINGS =====
+  const titleText = `IGNOU ${programme} Subjects | Solved Assignments`;
+  const descText = `Download IGNOU ${programme} subject-wise solved assignments for January and July sessions.`;
+
+  document.getElementById("seoTitle").innerText = titleText;
+  document.getElementById("seoDescription").setAttribute("content", descText);
 
   document.getElementById("programmeTitle").innerText =
     programme + " Subjects";
 
+  document.getElementById("programmeSubtitle").innerText =
+    "Choose a subject for " + programme + " programme";
+
+  // ===== SUBJECT CARDS =====
   const subjectGrid = document.getElementById("subjectGrid");
 
   const subjects = [
@@ -38,13 +66,21 @@
     )
   ];
 
+  if (subjects.length === 0) {
+    subjectGrid.innerHTML =
+      "<p style='text-align:center;color:#777;'>No subjects found.</p>";
+  }
+
   subjects.forEach(sub => {
     const card = document.createElement("div");
     card.className = "subject-card";
     card.innerHTML = `<h3>${sub}</h3>`;
     card.onclick = () => {
       window.location.href =
-        "assignments.html?programme=" + programme + "&subject=" + encodeURIComponent(sub);
+        "assignments.html?programme=" +
+        programme +
+        "&subject=" +
+        encodeURIComponent(sub);
     };
     subjectGrid.appendChild(card);
   });
