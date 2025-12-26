@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <title>IGNOU Solved Assignments</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+
+  <!-- FORCE CSS RELOAD -->
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 
 <body>
@@ -20,6 +22,7 @@
   <h2>Select Programme</h2>
 
   <div class="programme-grid">
+
     <div class="programme-card" onclick="selectProgramme('MA')">
       <h3>MA</h3>
       <p>Master of Arts</p>
@@ -39,6 +42,7 @@
       <h3>Diploma</h3>
       <p>All Diploma Courses</p>
     </div>
+
   </div>
 </section>
 
@@ -48,7 +52,7 @@
   <div id="subjectGrid" class="subject-grid"></div>
 </section>
 
-<!-- ===== SEARCH & FILTER ===== -->
+<!-- ===== FILTER BOX ===== -->
 <div class="filter-box">
 
   <select id="levelFilter">
@@ -58,10 +62,9 @@
     <option value="BSC">BSc</option>
     <option value="BED">B.Ed</option>
     <option value="DIPLOMA">Diploma</option>
-    <option value="CERTIFICATE">Certificate</option>
   </select>
 
-  <!-- SUBJECT DROPDOWN HIDDEN (CARDS ONLY UI) -->
+  <!-- hidden dropdown (cards only UI) -->
   <select id="subjectFilter" style="display:none;"></select>
 
   <input type="text" id="search" placeholder="Search Course Code (e.g. MEG01)">
@@ -74,12 +77,12 @@
 
 </div>
 
-<!-- ===== ASSIGNMENT LIST ===== -->
+<!-- ===== ASSIGNMENTS ===== -->
 <div id="assignmentList"></div>
 
 <!-- ===== SCRIPTS ===== -->
 <script src="data.js"></script>
-<script src="script.js"></script>
+<script src="script.js?v=3"></script>
 
 <!-- ===== FOOTER ===== -->
 <footer class="main-footer">
