@@ -1,25 +1,32 @@
 alert("SCRIPT LOADED");
+
 const list = document.getElementById("assignmentList");
 const search = document.getElementById("search");
 const sessionFilter = document.getElementById("sessionFilter");
 const levelFilter = document.getElementById("levelFilter");
 const subjectFilter = document.getElementById("subjectFilter");
+const subjectSection = document.getElementById("subjectSection");
+const subjectGrid = document.getElementById("subjectGrid");
 
-// Initial message
+/* =========================
+   INITIAL STATE
+========================= */
 list.innerHTML = `<p style="text-align:center;color:#777;">
   Please select a programme
 </p>`;
 
-// Programme card click
+/* =========================
+   PROGRAMME CARD CLICK
+========================= */
 function selectProgramme(level) {
   levelFilter.value = level;
   loadSubjects(level);
 }
 
+/* =========================
+   LOAD SUBJECTS (CARDS + DROPDOWN)
+========================= */
 function loadSubjects(level) {
-  const subjectSection = document.getElementById("subjectSection");
-  const subjectGrid = document.getElementById("subjectGrid");
-
   subjectGrid.innerHTML = "";
   subjectSection.style.display = "none";
   subjectFilter.innerHTML = `<option value="">Select Subject</option>`;
@@ -27,11 +34,12 @@ function loadSubjects(level) {
 
   if (!level) return;
 
+  // 🔥 IMPORTANT: safe trim + unique subjects
   const subjects = [
     ...new Set(
       assignments
-        .filter(item => item.level.trim() === level.trim())
-        .map(item => item.programme.trim())
+        .filter(item => item.level && item.level.trim() === level.trim())
+        .map(item => item.programme && item.programme.trim())
     )
   ];
 
@@ -43,16 +51,19 @@ function loadSubjects(level) {
   }
 
   subjects.forEach(sub => {
-    const div = document.createElement("div");
-    div.className = "subject-card";
-    div.innerHTML = `<h3>${sub}</h3>`;
-    div.onclick = () => {
+    if (!sub) return;
+
+    // 👉 SUBJECT CARD
+    const card = document.createElement("div");
+    card.className = "subject-card";
+    card.innerHTML = `<h3>${sub}</h3>`;
+    card.onclick = () => {
       subjectFilter.value = sub;
       filterData();
     };
-    subjectGrid.appendChild(div);
+    subjectGrid.appendChild(card);
 
-    // Also fill dropdown (optional)
+    // 👉 SUBJECT DROPDOWN (sync)
     subjectFilter.innerHTML += `<option value="${sub}">${sub}</option>`;
   });
 
@@ -64,7 +75,9 @@ function loadSubjects(level) {
   </p>`;
 }
 
-// Dropdown events
+/* =========================
+   EVENTS
+========================= */
 levelFilter.addEventListener("change", () => {
   loadSubjects(levelFilter.value);
 });
@@ -73,7 +86,9 @@ subjectFilter.addEventListener("change", filterData);
 search.addEventListener("input", filterData);
 sessionFilter.addEventListener("change", filterData);
 
-// Filter assignments
+/* =========================
+   FILTER ASSIGNMENTS
+========================= */
 function filterData() {
   const level = levelFilter.value;
   const subject = subjectFilter.value;
@@ -88,8 +103,8 @@ function filterData() {
   }
 
   const filtered = assignments.filter(item =>
-    item.level === level &&
-    item.programme === subject &&
+    item.level.trim() === level.trim() &&
+    item.programme.trim() === subject.trim() &&
     item.course.toLowerCase().includes(text) &&
     (session === "all" || item.session === session)
   );
@@ -97,7 +112,9 @@ function filterData() {
   render(filtered);
 }
 
-// Render cards
+/* =========================
+   RENDER CARDS
+========================= */
 function render(data) {
   list.innerHTML = "";
 
@@ -118,3 +135,4 @@ function render(data) {
     `;
   });
 }
+
