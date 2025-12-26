@@ -29,7 +29,7 @@
 
   <p class="seo-text" id="seoText"></p>
 
-  <!-- YEAR WISE CONTENT (MA ONLY) -->
+  <!-- MA YEAR-WISE CONTENT -->
   <div id="yearInfo"></div>
 
   <!-- OTHER PROGRAMMES -->
@@ -54,7 +54,7 @@
 
     document.getElementById("seoDescription").setAttribute(
       "content",
-      `Download IGNOU ${programme} ${subject} solved assignments for 1st year and 2nd year.`
+      `Download IGNOU ${programme} ${subject} solved assignments for 1st and 2nd year.`
     );
 
     document.getElementById("pageTitle").innerText =
@@ -67,13 +67,48 @@
       `Get IGNOU ${programme} ${subject} solved assignments for both 1st and 2nd year.`;
   }
 
+  /* ===== MA SUBJECT → COURSE CODES ===== */
+  const maCourses = {
+    "English": {
+      y1: "MEG-01, MEG-02, MEG-03, MEG-04",
+      y2: "MEG-05, MEG-06, MEG-07, MEG-08"
+    },
+    "Urdu": {
+      y1: "MUD-01, MUD-02, MUD-03, MUD-04",
+      y2: "MUD-05, MUD-06, MUD-07, MUD-08"
+    },
+    "Political Science": {
+      y1: "MPS-01, MPS-02, MPS-03, MPS-04",
+      y2: "MPS-05, MPS-06, MPS-07, MPS-08"
+    },
+    "History": {
+      y1: "MAH-01, MAH-02, MAH-03, MAH-04",
+      y2: "MAH-05, MAH-06, MAH-07, MAH-08"
+    },
+    "Sociology": {
+      y1: "MSO-01, MSO-02, MSO-03, MSO-04",
+      y2: "MSO-05, MSO-06, MSO-07, MSO-08"
+    },
+    "Psychology": {
+      y1: "MAPC-01, MAPC-02, MAPC-03, MAPC-04",
+      y2: "MAPC-05, MAPC-06, MAPC-07, MAPC-08"
+    },
+    "Economics": {
+      y1: "MEC-01, MEC-02, MEC-03, MEC-04",
+      y2: "MEC-05, MEC-06, MEC-07, MEC-08"
+    }
+  };
+
   /* ================= MA ONLY ================= */
-  if (programme === "MA") {
+  if (programme === "MA" && maCourses[subject]) {
+
+    const y1 = maCourses[subject].y1;
+    const y2 = maCourses[subject].y2;
 
     yearInfo.innerHTML = `
       <div class="lock-box">
         <h3>MA ${subject} – 1st Year</h3>
-        <p>Solved Assignments (4 Papers)</p>
+        <p><b>Course Codes:</b> ${y1}</p>
         <b>₹49 Only</b><br><br>
         <a class="unlock-btn"
           href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%201st%20Year%20Solved%20Assignments%20(@%20₹49)."
@@ -84,7 +119,7 @@
 
       <div class="lock-box" style="margin-top:25px;">
         <h3>MA ${subject} – 2nd Year</h3>
-        <p>Solved Assignments (4 Papers)</p>
+        <p><b>Course Codes:</b> ${y2}</p>
         <b>₹49 Only</b><br><br>
         <a class="unlock-btn"
           href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%202nd%20Year%20Solved%20Assignments%20(@%20₹49)."
@@ -95,7 +130,7 @@
     `;
   }
 
-  /* ================= NON-MA (BA / BSc etc) ================= */
+  /* ================= NON-MA ================= */
   else {
     const filtered = assignments.filter(a =>
       a.level === programme &&
