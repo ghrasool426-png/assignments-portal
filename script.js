@@ -5,6 +5,8 @@ const search = document.getElementById("search");
 const sessionFilter = document.getElementById("sessionFilter");
 const levelFilter = document.getElementById("levelFilter");
 const subjectFilter = document.getElementById("subjectFilter");
+// Force hide subject dropdown (cards only UI)
+subjectFilter.style.display = "none";
 const subjectSection = document.getElementById("subjectSection");
 const subjectGrid = document.getElementById("subjectGrid");
 
