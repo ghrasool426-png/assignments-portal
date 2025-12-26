@@ -235,4 +235,8 @@ footer {
   font-size: 15px;
   color: #0f4c75;
 }
+/* Hide subject dropdown (cards only UI) */
+#subjectFilter {
+  display: none;
+}
 
