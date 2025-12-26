@@ -126,13 +126,20 @@ function render(data) {
   }
 
   data.forEach(item => {
+    const isComingSoon = item.file === "#" || !item.file;
+
     list.innerHTML += `
       <div class="card">
-        <b>${item.level} – ${item.programme}</b><br>
-        Course: ${item.course} | Session: ${item.session}<br>
-        <a class="btn" href="${item.file}" target="_blank">Download</a>
+        <b>${item.course}</b><br>
+        Session: ${item.session}<br>
+
+        ${
+          isComingSoon
+            ? `<span class="coming-soon">Coming Soon</span>`
+            : `<a class="btn" href="${item.file}" target="_blank">Download PDF</a>`
+        }
       </div>
     `;
   });
-}
+                               }
 
