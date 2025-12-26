@@ -22,7 +22,6 @@
 
 <body>
 
-<!-- ===== HEADER ===== -->
 <header class="main-header">
   <h1 id="pageTitle">IGNOU Solved Assignments</h1>
   <p id="pageSubtitle">
@@ -30,12 +29,14 @@
   </p>
 </header>
 
-<!-- ===== CONTENT ===== -->
 <section class="assignment-section">
 
   <p class="seo-text" id="seoText">
     Select your programme and subject to view IGNOU solved assignments.
   </p>
+
+  <!-- ===== YEAR-WISE INFO (TEXT ONLY) ===== -->
+  <div id="yearInfo"></div>
 
   <div id="assignmentList"></div>
 
@@ -48,35 +49,109 @@
   const programme = params.get("programme");
   const subject = params.get("subject");
   const list = document.getElementById("assignmentList");
+  const yearInfo = document.getElementById("yearInfo");
 
   /* ===== SEO ===== */
   if (programme && subject) {
     document.getElementById("seoTitle").innerText =
-      `IGNOU ${programme} ${subject} Solved Assignments 2025 | PDF Download`;
+      `IGNOU ${programme} ${subject} Solved Assignments 2025`;
 
     document.getElementById("seoDescription").setAttribute(
       "content",
-      `Download IGNOU ${programme} ${subject} solved assignments for January and July sessions.`
+      `Download IGNOU ${programme} ${subject} solved assignments for 1st year and 2nd year.`
     );
 
     document.getElementById("pageTitle").innerText =
       `IGNOU ${programme} ${subject} Solved Assignments`;
 
     document.getElementById("pageSubtitle").innerText =
-      `Subject-wise solved assignments for ${programme} ${subject}`;
-
-    document.getElementById("seoText").innerText =
-      `Here you can get IGNOU ${programme} ${subject} solved assignments for January and July sessions.`;
+      `1st Year & 2nd Year Assignments – ${programme} ${subject}`;
   }
 
-  /* ===== FILTER ===== */
+  /* ===== MA YEAR-WISE TEXT (SAFE DISPLAY ONLY) ===== */
+  if (programme === "MA") {
+    let text = "";
+
+    if (subject === "English") {
+      text = `
+        <h3>MA English – 1st Year Assignments</h3>
+        <p>MEG-01 | MEG-02 | MEG-03 | MEG-04<br><b>4 Assignments @ ₹49</b></p>
+
+        <h3>MA English – 2nd Year Assignments</h3>
+        <p>MEG-05 | MEG-06 | MEG-07 | MEG-08<br><b>4 Assignments @ ₹49</b></p>
+      `;
+    }
+
+    else if (subject === "Urdu") {
+      text = `
+        <h3>MA Urdu – 1st Year Assignments</h3>
+        <p>MUD-01 | MUD-02 | MUD-03 | MUD-04<br><b>4 Assignments @ ₹49</b></p>
+
+        <h3>MA Urdu – 2nd Year Assignments</h3>
+        <p>MUD-05 | MUD-06 | MUD-07 | MUD-08<br><b>4 Assignments @ ₹49</b></p>
+      `;
+    }
+
+    else if (subject === "Political Science") {
+      text = `
+        <h3>MA Political Science – 1st Year</h3>
+        <p>MPS-01 | MPS-02 | MPS-03 | MPS-04<br><b>4 Assignments @ ₹49</b></p>
+
+        <h3>MA Political Science – 2nd Year</h3>
+        <p>MPS-05 | MPS-06 | MPS-07 | MPS-08<br><b>4 Assignments @ ₹49</b></p>
+      `;
+    }
+
+    else if (subject === "History") {
+      text = `
+        <h3>MA History – 1st Year</h3>
+        <p>MAH-01 | MAH-02 | MAH-03 | MAH-04<br><b>4 Assignments @ ₹49</b></p>
+
+        <h3>MA History – 2nd Year</h3>
+        <p>MAH-05 | MAH-06 | MAH-07 | MAH-08<br><b>4 Assignments @ ₹49</b></p>
+      `;
+    }
+
+    else if (subject === "Sociology") {
+      text = `
+        <h3>MA Sociology – 1st Year</h3>
+        <p>MSO-01 | MSO-02 | MSO-03 | MSO-04<br><b>4 Assignments @ ₹49</b></p>
+
+        <h3>MA Sociology – 2nd Year</h3>
+        <p>MSO-05 | MSO-06 | MSO-07 | MSO-08<br><b>4 Assignments @ ₹49</b></p>
+      `;
+    }
+
+    else if (subject === "Psychology") {
+      text = `
+        <h3>MA Psychology – 1st Year</h3>
+        <p>MAPC-01 | MAPC-02 | MAPC-03 | MAPC-04<br><b>4 Assignments @ ₹49</b></p>
+
+        <h3>MA Psychology – 2nd Year</h3>
+        <p>MAPC-05 | MAPC-06 | MAPC-07 | MAPC-08<br><b>4 Assignments @ ₹49</b></p>
+      `;
+    }
+
+    else if (subject === "Economics") {
+      text = `
+        <h3>MA Economics – 1st Year</h3>
+        <p>MEC-01 | MEC-02 | MEC-03 | MEC-04<br><b>4 Assignments @ ₹49</b></p>
+
+        <h3>MA Economics – 2nd Year</h3>
+        <p>MEC-05 | MEC-06 | MEC-07 | MEC-08<br><b>4 Assignments @ ₹49</b></p>
+      `;
+    }
+
+    yearInfo.innerHTML = text;
+  }
+
+  /* ===== FILTER (UNCHANGED) ===== */
   const filtered = assignments.filter(a =>
     a.level === programme &&
     a.programme === subject &&
     a.course !== "TEMP"
   );
 
-  /* ===== RENDER ===== */
   if (!programme || !subject) {
     list.innerHTML =
       "<p style='text-align:center;color:#777;'>Please select programme and subject.</p>";
