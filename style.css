@@ -1,148 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f4f6f8;
-}
-
-header {
-  background: #003366;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-}
-
-.container {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 10px;
-}
-
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  font-size: 15px;
-}
-
-.card {
-  background: #fff;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.btn {
-  float: right;
-  background: #007bff;
-  color: white;
-  padding: 6px 10px;
-  text-decoration: none;
-  border-radius: 4px;
-}
-
-footer {
-  text-align: center;
-  padding: 15px;
-  background: #eee;
-  margin-top: 30px;
-}
-.filter-box {
-  background: #ffffff;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.filter-box select,
-.filter-box input {
-  margin-bottom: 10px;
-}
-
-.card {
-  border-left: 4px solid #003366;
-}
-
-.card b {
-  font-size: 16px;
-  color: #003366;
-}
-.main-header {
-  background: linear-gradient(135deg, #0f4c75, #3282b8);
-  color: #fff;
-  padding: 30px 15px;
-  text-align: center;
-}
-
-.main-header h1 {
-  margin: 0;
-  font-size: 24px;
-}
-
-.main-header p {
-  margin-top: 8px;
-  font-size: 14px;
-  opacity: 0.9;
-}.programme-section {
-  margin: 35px 0;
-  text-align: center;
-}
-
-.programme-section h2 {
-  margin-bottom: 20px;
-  color: #0f4c75;
-}
-
-.programme-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
-}
-
-.programme-card {
-  background: #fff;
-  padding: 20px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.programme-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-}
-
-.programme-card h3 {
-  margin: 0;
-  font-size: 22px;
-  color: #0f4c75;
-}
-
-.programme-card p {
-  margin-top: 6px;
-  font-size: 13px;
-  color: #555;
-}
-
-.filter-box {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  margin: 25px 0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.filter-box select,
-.filter-box input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-}
-
 .card {
   background: #fff;
   padding: 15px;
@@ -156,6 +11,8 @@ footer {
   font-size: 15px;
   color: #0f4c75;
 }
+
+/* ===== FOOTER ===== */
 .main-footer {
   background: #0f4c75;
   color: #fff;
@@ -200,6 +57,8 @@ footer {
   font-size: 13px;
   color: #ccc;
 }
+
+/* ===== SUBJECT CARDS ===== */
 .subject-section {
   margin: 30px 0;
   text-align: center;
@@ -235,8 +94,10 @@ footer {
   font-size: 15px;
   color: #0f4c75;
 }
-/* Hide subject dropdown (cards only UI) */
+
+/* ===== HIDE SUBJECT DROPDOWN (CARDS ONLY UI) ===== */
 #subjectFilter {
-  display: none;
+  display: none !important;
 }
+
 
