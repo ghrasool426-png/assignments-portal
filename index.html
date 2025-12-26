@@ -5,10 +5,9 @@
   <title>IGNOU Solved Assignments</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- FORCE CSS RELOAD -->
-  <link rel="stylesheet" href="style.css?v=3">
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <!-- ===== HEADER ===== -->
@@ -17,7 +16,7 @@
   <p>Free & Paid Solved Assignments – MA | BA | B.Ed | Diploma</p>
 </header>
 
-<!-- ===== PROGRAMME CARDS ===== -->
+<!-- ===== PROGRAMME SECTION ===== -->
 <section class="programme-section">
   <h2>Select Programme</h2>
 
@@ -46,28 +45,24 @@
   </div>
 </section>
 
-<!-- ===== SUBJECT CARDS ===== -->
+<!-- ✅ SUBJECT SECTION (NOW DIRECTLY BELOW PROGRAMME) -->
 <section id="subjectSection" class="subject-section" style="display:none;">
   <h2>Select Subject</h2>
   <div id="subjectGrid" class="subject-grid"></div>
 </section>
 
-<!-- ===== FILTER BOX ===== -->
+<!-- ===== SEARCH PANEL ===== -->
 <div class="filter-box">
 
-  <select id="levelFilter">
-    <option value="">Select Programme</option>
-    <option value="MA">MA</option>
-    <option value="BA">BA</option>
-    <option value="BSC">BSc</option>
-    <option value="BED">B.Ed</option>
-    <option value="DIPLOMA">Diploma</option>
-  </select>
-
-  <!-- hidden dropdown (cards only UI) -->
+  <!-- hidden dropdown (logic ke liye, UI ke liye nahi) -->
+  <select id="levelFilter" style="display:none;"></select>
   <select id="subjectFilter" style="display:none;"></select>
 
-  <input type="text" id="search" placeholder="Search Course Code (e.g. MEG01)">
+  <input
+    type="text"
+    id="search"
+    placeholder="Search Course Code (e.g. MEG01)"
+  >
 
   <select id="sessionFilter">
     <option value="all">All Sessions</option>
@@ -77,22 +72,23 @@
 
 </div>
 
-<!-- ===== ASSIGNMENTS ===== -->
+<!-- ===== RESULT LIST ===== -->
 <div id="assignmentList"></div>
 
-<!-- ===== SCRIPTS ===== -->
+<!-- JS -->
 <script src="data.js"></script>
-<script src="script.js?v=3"></script>
+<script src="script.js"></script>
 
 <!-- ===== FOOTER ===== -->
 <footer class="main-footer">
+
   <div class="footer-container">
 
     <div class="footer-box">
       <h3>IGNOU Assignments</h3>
       <p>
-        This portal provides solved IGNOU assignments for reference purposes only.
-        We are not affiliated with IGNOU.
+        This portal provides solved IGNOU assignments for reference
+        purposes only. We are not affiliated with IGNOU.
       </p>
     </div>
 
@@ -121,6 +117,7 @@
   <div class="footer-bottom">
     © 2025 IGNOU Assignments Portal | All Rights Reserved
   </div>
+
 </footer>
 
 </body>
