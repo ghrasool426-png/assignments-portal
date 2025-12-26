@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8">
 
+  <!-- SEO TITLE (dynamic) -->
   <title id="seoTitle">IGNOU Solved Assignments</title>
 
+  <!-- SEO DESCRIPTION (dynamic) -->
   <meta name="description" id="seoDescription"
         content="Download IGNOU solved assignments subject-wise for MA, BA, BSc and Diploma programmes.">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- CANONICAL -->
   <link rel="canonical"
         href="https://ghrasool426-png.github.io/assignments-portal/assignments.html">
 
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -29,7 +33,7 @@
 
   <p class="seo-text" id="seoText"></p>
 
-  <!-- MA CONTENT -->
+  <!-- MA YEAR-WISE CONTENT -->
   <div id="yearInfo"></div>
 
   <!-- NON-MA CONTENT -->
@@ -40,14 +44,15 @@
 <script src="data.js"></script>
 
 <script>
+  /* ================= URL PARAMS (FIXED) ================= */
   const params = new URLSearchParams(window.location.search);
-  const programme = params.get("programme");
-  const subject = params.get("subject");
+  const programme = (params.get("programme") || "").trim().toUpperCase();
+  const subject = decodeURIComponent(params.get("subject") || "").trim();
 
   const yearInfo = document.getElementById("yearInfo");
   const list = document.getElementById("assignmentList");
 
-  /* ================= SEO ================= */
+  /* ================= SEO (SAFE) ================= */
   if (programme && subject) {
     document.getElementById("seoTitle").innerText =
       `IGNOU ${programme} ${subject} Solved Assignments 2025`;
@@ -71,62 +76,20 @@
 
   /* ================= MA SUBJECT → COURSE CODES ================= */
   const maCourses = {
-    "English": {
-      y1: "MEG-01, MEG-02, MEG-03, MEG-04",
-      y2: "MEG-05, MEG-06, MEG-07, MEG-08"
-    },
-    "Hindi": {
-      y1: "MHD-01, MHD-02, MHD-03, MHD-04",
-      y2: "MHD-05, MHD-06, MHD-07, MHD-08"
-    },
-    "Urdu": {
-      y1: "MUD-01, MUD-02, MUD-03, MUD-04",
-      y2: "MUD-05, MUD-06, MUD-07, MUD-08"
-    },
-    "Political Science": {
-      y1: "MPS-01, MPS-02, MPS-03, MPS-04",
-      y2: "MPS-05, MPS-06, MPS-07, MPS-08"
-    },
-    "History": {
-      y1: "MAH-01, MAH-02, MAH-03, MAH-04",
-      y2: "MAH-05, MAH-06, MAH-07, MAH-08"
-    },
-    "Sociology": {
-      y1: "MSO-01, MSO-02, MSO-03, MSO-04",
-      y2: "MSO-05, MSO-06, MSO-07, MSO-08"
-    },
-    "Psychology": {
-      y1: "MAPC-01, MAPC-02, MAPC-03, MAPC-04",
-      y2: "MAPC-05, MAPC-06, MAPC-07, MAPC-08"
-    },
-    "Economics": {
-      y1: "MEC-01, MEC-02, MEC-03, MEC-04",
-      y2: "MEC-05, MEC-06, MEC-07, MEC-08"
-    },
-    "Public Administration": {
-      y1: "MPA-01, MPA-02, MPA-03, MPA-04",
-      y2: "MPA-05, MPA-06, MPA-07, MPA-08"
-    },
-    "Education": {
-      y1: "MAEDU-01, MAEDU-02, MAEDU-03, MAEDU-04",
-      y2: "MAEDU-05, MAEDU-06, MAEDU-07, MAEDU-08"
-    },
-    "Philosophy": {
-      y1: "MAPY-01, MAPY-02, MAPY-03, MAPY-04",
-      y2: "MAPY-05, MAPY-06, MAPY-07, MAPY-08"
-    },
-    "Anthropology": {
-      y1: "MANT-01, MANT-02, MANT-03, MANT-04",
-      y2: "MANT-05, MANT-06, MANT-07, MANT-08"
-    },
-    "Rural Development": {
-      y1: "MARD-01, MARD-02, MARD-03, MARD-04",
-      y2: "MARD-05, MARD-06, MARD-07, MARD-08"
-    },
-    "Journalism": {
-      y1: "MAJMC-01, MAJMC-02, MAJMC-03, MAJMC-04",
-      y2: "MAJMC-05, MAJMC-06, MAJMC-07, MAJMC-08"
-    }
+    "English": { y1: "MEG-01, MEG-02, MEG-03, MEG-04", y2: "MEG-05, MEG-06, MEG-07, MEG-08" },
+    "Hindi": { y1: "MHD-01, MHD-02, MHD-03, MHD-04", y2: "MHD-05, MHD-06, MHD-07, MHD-08" },
+    "Urdu": { y1: "MUD-01, MUD-02, MUD-03, MUD-04", y2: "MUD-05, MUD-06, MUD-07, MUD-08" },
+    "Political Science": { y1: "MPS-01, MPS-02, MPS-03, MPS-04", y2: "MPS-05, MPS-06, MPS-07, MPS-08" },
+    "History": { y1: "MAH-01, MAH-02, MAH-03, MAH-04", y2: "MAH-05, MAH-06, MAH-07, MAH-08" },
+    "Sociology": { y1: "MSO-01, MSO-02, MSO-03, MSO-04", y2: "MSO-05, MSO-06, MSO-07, MSO-08" },
+    "Psychology": { y1: "MAPC-01, MAPC-02, MAPC-03, MAPC-04", y2: "MAPC-05, MAPC-06, MAPC-07, MAPC-08" },
+    "Economics": { y1: "MEC-01, MEC-02, MEC-03, MEC-04", y2: "MEC-05, MEC-06, MEC-07, MEC-08" },
+    "Public Administration": { y1: "MPA-01, MPA-02, MPA-03, MPA-04", y2: "MPA-05, MPA-06, MPA-07, MPA-08" },
+    "Education": { y1: "MAEDU-01, MAEDU-02, MAEDU-03, MAEDU-04", y2: "MAEDU-05, MAEDU-06, MAEDU-07, MAEDU-08" },
+    "Philosophy": { y1: "MAPY-01, MAPY-02, MAPY-03, MAPY-04", y2: "MAPY-05, MAPY-06, MAPY-07, MAPY-08" },
+    "Anthropology": { y1: "MANT-01, MANT-02, MANT-03, MANT-04", y2: "MANT-05, MANT-06, MANT-07, MANT-08" },
+    "Rural Development": { y1: "MARD-01, MARD-02, MARD-03, MARD-04", y2: "MARD-05, MARD-06, MARD-07, MARD-08" },
+    "Journalism": { y1: "MAJMC-01, MAJMC-02, MAJMC-03, MAJMC-04", y2: "MAJMC-05, MAJMC-06, MAJMC-07, MAJMC-08" }
   };
 
   /* ================= MA ONLY (PAID SYSTEM) ================= */
@@ -153,8 +116,6 @@
           target="_blank">Unlock on WhatsApp</a>
       </div>
     `;
-
-    /* 🔒 MA me kabhi PDF cards nahi */
     return;
   }
 
