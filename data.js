@@ -98,99 +98,99 @@ const assignments = [
     course: "MAJMC01",
     session: "Jan",
     file: "pdf/MA/Journalism/MAJMC01.pdf"
+  },
+
+  // ===== BA SUBJECT SEED =====
+  {
+    level: "BA",
+    programme: "Anthropology",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "History",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "Economics",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "Political Science",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "English",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "Hindi",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "Urdu",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "Psychology",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "Sociology",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "Public Administration",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "Philosophy",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "Sanskrit",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
+  },
+  {
+    level: "BA",
+    programme: "Education",
+    course: "TEMP",
+    session: "Jan",
+    file: "#"
   }
 
 ];
-// ===== BA SUBJECT SEED =====
-{
-  level: "BA",
-  programme: "Anthropology",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "History",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "Economics",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "Political Science",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "English",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "Hindi",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "Urdu",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "Psychology",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "Sociology",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "Public Administration",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "Philosophy",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "Sanskrit",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-{
-  level: "BA",
-  programme: "Education",
-  course: "TEMP",
-  session: "Jan",
-  file: "#"
-},
-
