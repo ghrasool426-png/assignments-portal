@@ -66,7 +66,7 @@
       `Subject-wise solved assignments for ${programme} ${subject}`;
 
     document.getElementById("seoText").innerText =
-      `Here you can download IGNOU ${programme} ${subject} solved assignments for January and July sessions.`;
+      `Here you can get IGNOU ${programme} ${subject} solved assignments for January and July sessions.`;
   }
 
   /* ===== FILTER ===== */
@@ -90,7 +90,6 @@
       const card = document.createElement("div");
       card.className = "card";
 
-      // ✅ CHECK PDF EXISTENCE
       const hasPDF =
         item.file &&
         item.file !== "#" &&
@@ -103,7 +102,21 @@
         ${
           hasPDF
             ? `<a class="btn" href="${item.file}" target="_blank">Download PDF</a>`
-            : `<span style="color:#999;font-weight:600;">Coming Soon</span>`
+            : `
+              <div class="lock-box">
+                <span class="lock-icon">🔒</span>
+                <div class="lock-text">
+                  MA ${subject} Solved Assignments<br>
+                  <b>4 Assignments @ ₹49</b>
+                </div>
+                <a
+                  class="unlock-btn"
+                  href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20${programme}%20${subject}%20solved%20assignments%20combo%20(4%20assignments%20@%20₹49)."
+                  target="_blank">
+                  Unlock on WhatsApp
+                </a>
+              </div>
+            `
         }
       `;
 
