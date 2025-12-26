@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select Subject</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="main-header">
+  <h1 id="programmeTitle">Subjects</h1>
+</header>
+
+<section class="subject-section">
+  <div id="subjectGrid" class="subject-grid"></div>
+</section>
+
+<div id="assignmentList"></div>
+
+<script src="data.js"></script>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const programme = params.get("programme");
+
+  document.getElementById("programmeTitle").innerText =
+    programme + " Subjects";
+
+  const subjectGrid = document.getElementById("subjectGrid");
+
+  const subjects = [
+    ...new Set(
+      assignments
+        .filter(a => a.level === programme)
+        .map(a => a.programme)
+    )
+  ];
+
+  subjects.forEach(sub => {
+    const card = document.createElement("div");
+    card.className = "subject-card";
+    card.innerHTML = `<h3>${sub}</h3>`;
+    card.onclick = () => {
+      window.location.href =
+        "assignments.html?programme=" + programme + "&subject=" + encodeURIComponent(sub);
+    };
+    subjectGrid.appendChild(card);
+  });
+</script>
+
+</body>
+</html>
