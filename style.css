@@ -203,3 +203,17 @@ body {
   font-size: 13px;
   color: #ccc;
 }
+/* ===== FOOTER LINKS FIX (CONSISTENT LOOK) ===== */
+.footer-box ul li a {
+  color: #e0e0e0;          /* white text like others */
+  text-decoration: none;  /* remove default underline */
+  display: inline-block;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.footer-box ul li a:hover {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
