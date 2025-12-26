@@ -2,30 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Assignments Portal</title>
+  <title>IGNOU Solved Assignments</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- CSS file link -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <header class="main-header">
+<!-- ===== HEADER ===== -->
+<header class="main-header">
   <h1>IGNOU Solved Assignments</h1>
   <p>Free & Paid Solved Assignments – MA | BA | B.Ed | Diploma</p>
-  </header>
-<!-- ===== SUBJECT CARDS ===== -->
-<section id="subjectSection" class="subject-section" style="display:none;">
-  <h2>Select Subject</h2>
-  <div id="subjectGrid" class="subject-grid"></div>
-</section>
-  
-<!-- ===== PROGRAMME CARDS SECTION (FINAL WORKING) ===== -->
+</header>
+
+<!-- ===== PROGRAMME CARDS ===== -->
 <section class="programme-section">
   <h2>Select Programme</h2>
 
   <div class="programme-grid">
-
     <div class="programme-card" onclick="selectProgramme('MA')">
       <h3>MA</h3>
       <p>Master of Arts</p>
@@ -45,12 +39,16 @@
       <h3>Diploma</h3>
       <p>All Diploma Courses</p>
     </div>
-
   </div>
 </section>
-  
 
-<!-- ===== SEARCH & FILTER PANEL ===== -->
+<!-- ===== SUBJECT CARDS ===== -->
+<section id="subjectSection" class="subject-section" style="display:none;">
+  <h2>Select Subject</h2>
+  <div id="subjectGrid" class="subject-grid"></div>
+</section>
+
+<!-- ===== SEARCH & FILTER ===== -->
 <div class="filter-box">
 
   <select id="levelFilter">
@@ -63,16 +61,10 @@
     <option value="CERTIFICATE">Certificate</option>
   </select>
 
-  <select id="subjectFilter" disabled style="display:none;">
-    
-    <option value="">Select Subject</option>
-  </select>
+  <!-- SUBJECT DROPDOWN HIDDEN (CARDS ONLY UI) -->
+  <select id="subjectFilter" style="display:none;"></select>
 
-  <input
-    type="text"
-    id="search"
-    placeholder="Search Course Code (e.g. MEG01)"
-  >
+  <input type="text" id="search" placeholder="Search Course Code (e.g. MEG01)">
 
   <select id="sessionFilter">
     <option value="all">All Sessions</option>
@@ -82,19 +74,22 @@
 
 </div>
 
-<!-- ===== ASSIGNMENT RESULT LIST ===== -->
+<!-- ===== ASSIGNMENT LIST ===== -->
 <div id="assignmentList"></div>
-  <script src="data.js"></script>
-<script src="script.js"></script>
-  <footer class="main-footer">
 
+<!-- ===== SCRIPTS ===== -->
+<script src="data.js"></script>
+<script src="script.js"></script>
+
+<!-- ===== FOOTER ===== -->
+<footer class="main-footer">
   <div class="footer-container">
 
     <div class="footer-box">
       <h3>IGNOU Assignments</h3>
       <p>
-        This portal provides solved IGNOU assignments for reference
-        purposes only. We are not affiliated with IGNOU.
+        This portal provides solved IGNOU assignments for reference purposes only.
+        We are not affiliated with IGNOU.
       </p>
     </div>
 
@@ -123,6 +118,7 @@
   <div class="footer-bottom">
     © 2025 IGNOU Assignments Portal | All Rights Reserved
   </div>
+</footer>
 
-  </footer>
-  
+</body>
+</html>
