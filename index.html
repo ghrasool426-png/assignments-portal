@@ -22,62 +22,36 @@
 
   <div class="programme-grid">
 
-    <div class="programme-card" onclick="selectProgramme('MA')">
+    <!-- MA -->
+    <div class="programme-card"
+         onclick="window.location.href='subjects.html?programme=MA'">
       <h3>MA</h3>
       <p>Master of Arts</p>
     </div>
 
-    <div class="programme-card" onclick="selectProgramme('BA')">
+    <!-- BA -->
+    <div class="programme-card"
+         onclick="window.location.href='subjects.html?programme=BA'">
       <h3>BA</h3>
       <p>Bachelor of Arts</p>
     </div>
 
-    <div class="programme-card" onclick="selectProgramme('BSC')">
+    <!-- BSc -->
+    <div class="programme-card"
+         onclick="window.location.href='subjects.html?programme=BSC'">
       <h3>BSc</h3>
       <p>Bachelor of Science</p>
     </div>
 
-    <div class="programme-card" onclick="selectProgramme('DIPLOMA')">
+    <!-- Diploma -->
+    <div class="programme-card"
+         onclick="window.location.href='subjects.html?programme=DIPLOMA'">
       <h3>Diploma</h3>
       <p>All Diploma Courses</p>
     </div>
 
   </div>
 </section>
-
-<!-- ✅ SUBJECT SECTION (NOW DIRECTLY BELOW PROGRAMME) -->
-<section id="subjectSection" class="subject-section" style="display:none;">
-  <h2>Select Subject</h2>
-  <div id="subjectGrid" class="subject-grid"></div>
-</section>
-
-<!-- ===== SEARCH PANEL ===== -->
-<div class="filter-box">
-
-  <!-- hidden dropdown (logic ke liye, UI ke liye nahi) -->
-  <select id="levelFilter" style="display:none;"></select>
-  <select id="subjectFilter" style="display:none;"></select>
-
-  <input
-    type="text"
-    id="search"
-    placeholder="Search Course Code (e.g. MEG01)"
-  >
-
-  <select id="sessionFilter">
-    <option value="all">All Sessions</option>
-    <option value="Jan">January</option>
-    <option value="July">July</option>
-  </select>
-
-</div>
-
-<!-- ===== RESULT LIST ===== -->
-<div id="assignmentList"></div>
-
-<!-- JS -->
-<script src="data.js"></script>
-<script src="script.js"></script>
 
 <!-- ===== FOOTER ===== -->
 <footer class="main-footer">
@@ -87,8 +61,8 @@
     <div class="footer-box">
       <h3>IGNOU Assignments</h3>
       <p>
-        This portal provides solved IGNOU assignments for reference
-        purposes only. We are not affiliated with IGNOU.
+        This portal provides solved IGNOU assignments for reference purposes only.
+        We are not affiliated with IGNOU.
       </p>
     </div>
 
