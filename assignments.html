@@ -3,20 +3,16 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- SEO TITLE (dynamic) -->
   <title id="seoTitle">IGNOU Solved Assignments</title>
 
-  <!-- SEO DESCRIPTION (dynamic) -->
   <meta name="description" id="seoDescription"
         content="Download IGNOU solved assignments subject-wise for MA, BA, BSc and Diploma programmes.">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- CANONICAL -->
   <link rel="canonical"
         href="https://ghrasool426-png.github.io/assignments-portal/assignments.html">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -31,13 +27,12 @@
 
 <section class="assignment-section">
 
-  <p class="seo-text" id="seoText">
-    Select your programme and subject to view IGNOU solved assignments.
-  </p>
+  <p class="seo-text" id="seoText"></p>
 
-  <!-- ===== YEAR-WISE INFO (TEXT ONLY) ===== -->
+  <!-- YEAR WISE CONTENT -->
   <div id="yearInfo"></div>
 
+  <!-- NON-MA LIST -->
   <div id="assignmentList"></div>
 
 </section>
@@ -48,8 +43,9 @@
   const params = new URLSearchParams(window.location.search);
   const programme = params.get("programme");
   const subject = params.get("subject");
-  const list = document.getElementById("assignmentList");
+
   const yearInfo = document.getElementById("yearInfo");
+  const list = document.getElementById("assignmentList");
 
   /* ===== SEO ===== */
   if (programme && subject) {
@@ -65,87 +61,44 @@
       `IGNOU ${programme} ${subject} Solved Assignments`;
 
     document.getElementById("pageSubtitle").innerText =
-      `1st Year & 2nd Year Assignments – ${programme} ${subject}`;
+      `1st Year & 2nd Year – ${programme} ${subject}`;
+
+    document.getElementById("seoText").innerText =
+      `Get IGNOU ${programme} ${subject} solved assignments for both 1st and 2nd year sessions.`;
   }
 
-  /* ===== MA YEAR-WISE TEXT (SAFE DISPLAY ONLY) ===== */
+  /* ===== MA → ONLY YEAR WISE (NO COURSE CARDS) ===== */
   if (programme === "MA") {
-    let text = "";
 
-    if (subject === "English") {
-      text = `
-        <h3>MA English – 1st Year Assignments</h3>
-        <p>MEG-01 | MEG-02 | MEG-03 | MEG-04<br><b>4 Assignments @ ₹49</b></p>
+    yearInfo.innerHTML = `
+      <div class="lock-box">
+        <h3>MA ${subject} – 1st Year</h3>
+        <p>Solved Assignments (4 Papers)</p>
+        <b>₹49 Only</b><br><br>
+        <a class="unlock-btn"
+          href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%201st%20Year%20Solved%20Assignments%20(@%20₹49)."
+          target="_blank">
+          Unlock on WhatsApp
+        </a>
+      </div>
 
-        <h3>MA English – 2nd Year Assignments</h3>
-        <p>MEG-05 | MEG-06 | MEG-07 | MEG-08<br><b>4 Assignments @ ₹49</b></p>
-      `;
-    }
+      <div class="lock-box" style="margin-top:25px;">
+        <h3>MA ${subject} – 2nd Year</h3>
+        <p>Solved Assignments (4 Papers)</p>
+        <b>₹49 Only</b><br><br>
+        <a class="unlock-btn"
+          href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%202nd%20Year%20Solved%20Assignments%20(@%20₹49)."
+          target="_blank">
+          Unlock on WhatsApp
+        </a>
+      </div>
+    `;
 
-    else if (subject === "Urdu") {
-      text = `
-        <h3>MA Urdu – 1st Year Assignments</h3>
-        <p>MUD-01 | MUD-02 | MUD-03 | MUD-04<br><b>4 Assignments @ ₹49</b></p>
-
-        <h3>MA Urdu – 2nd Year Assignments</h3>
-        <p>MUD-05 | MUD-06 | MUD-07 | MUD-08<br><b>4 Assignments @ ₹49</b></p>
-      `;
-    }
-
-    else if (subject === "Political Science") {
-      text = `
-        <h3>MA Political Science – 1st Year</h3>
-        <p>MPS-01 | MPS-02 | MPS-03 | MPS-04<br><b>4 Assignments @ ₹49</b></p>
-
-        <h3>MA Political Science – 2nd Year</h3>
-        <p>MPS-05 | MPS-06 | MPS-07 | MPS-08<br><b>4 Assignments @ ₹49</b></p>
-      `;
-    }
-
-    else if (subject === "History") {
-      text = `
-        <h3>MA History – 1st Year</h3>
-        <p>MAH-01 | MAH-02 | MAH-03 | MAH-04<br><b>4 Assignments @ ₹49</b></p>
-
-        <h3>MA History – 2nd Year</h3>
-        <p>MAH-05 | MAH-06 | MAH-07 | MAH-08<br><b>4 Assignments @ ₹49</b></p>
-      `;
-    }
-
-    else if (subject === "Sociology") {
-      text = `
-        <h3>MA Sociology – 1st Year</h3>
-        <p>MSO-01 | MSO-02 | MSO-03 | MSO-04<br><b>4 Assignments @ ₹49</b></p>
-
-        <h3>MA Sociology – 2nd Year</h3>
-        <p>MSO-05 | MSO-06 | MSO-07 | MSO-08<br><b>4 Assignments @ ₹49</b></p>
-      `;
-    }
-
-    else if (subject === "Psychology") {
-      text = `
-        <h3>MA Psychology – 1st Year</h3>
-        <p>MAPC-01 | MAPC-02 | MAPC-03 | MAPC-04<br><b>4 Assignments @ ₹49</b></p>
-
-        <h3>MA Psychology – 2nd Year</h3>
-        <p>MAPC-05 | MAPC-06 | MAPC-07 | MAPC-08<br><b>4 Assignments @ ₹49</b></p>
-      `;
-    }
-
-    else if (subject === "Economics") {
-      text = `
-        <h3>MA Economics – 1st Year</h3>
-        <p>MEC-01 | MEC-02 | MEC-03 | MEC-04<br><b>4 Assignments @ ₹49</b></p>
-
-        <h3>MA Economics – 2nd Year</h3>
-        <p>MEC-05 | MEC-06 | MEC-07 | MEC-08<br><b>4 Assignments @ ₹49</b></p>
-      `;
-    }
-
-    yearInfo.innerHTML = text;
+    // 🔥 IMPORTANT: STOP HERE (no cards below)
+    return;
   }
 
-  /* ===== FILTER (UNCHANGED) ===== */
+  /* ===== NON-MA (BA / BSc etc) ===== */
   const filtered = assignments.filter(a =>
     a.level === programme &&
     a.programme === subject &&
@@ -164,37 +117,11 @@
     filtered.forEach(item => {
       const card = document.createElement("div");
       card.className = "card";
-
-      const hasPDF =
-        item.file &&
-        item.file !== "#" &&
-        !item.file.includes("TEMP");
-
       card.innerHTML = `
         <b>${item.course}</b><br>
         Session: ${item.session}<br><br>
-
-        ${
-          hasPDF
-            ? `<a class="btn" href="${item.file}" target="_blank">Download PDF</a>`
-            : `
-              <div class="lock-box">
-                <span class="lock-icon">🔒</span>
-                <div class="lock-text">
-                  MA ${subject} Solved Assignments<br>
-                  <b>4 Assignments @ ₹49</b>
-                </div>
-                <a
-                  class="unlock-btn"
-                  href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20${programme}%20${subject}%20solved%20assignments%20combo%20(4%20assignments%20@%20₹49)."
-                  target="_blank">
-                  Unlock on WhatsApp
-                </a>
-              </div>
-            `
-        }
+        <a class="btn" href="${item.file}" target="_blank">Download PDF</a>
       `;
-
       list.appendChild(card);
     });
   }
