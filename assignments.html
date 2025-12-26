@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- SEO TITLE (dynamic) -->
+  <title id="seoTitle">IGNOU Solved Assignments</title>
+
+  <!-- SEO DESCRIPTION (dynamic) -->
+  <meta name="description" id="seoDescription"
+        content="Download IGNOU solved assignments subject-wise for MA, BA, BSc and Diploma programmes.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CANONICAL -->
+  <link rel="canonical"
+        href="https://ghrasool426-png.github.io/assignments-portal/assignments.html">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="main-header">
+  <h1 id="pageTitle">IGNOU Solved Assignments</h1>
+  <p id="pageSubtitle">
+    Download subject-wise solved assignments for January and July sessions
+  </p>
+</header>
+
+<!-- ===== CONTENT ===== -->
+<section class="assignment-section">
+
+  <!-- SEO TEXT -->
+  <p class="seo-text" id="seoText">
+    Select your programme and subject to view IGNOU solved assignments.
+  </p>
+
+  <!-- ASSIGNMENT LIST -->
+  <div id="assignmentList"></div>
+
+</section>
+
+<!-- ===== DATA ===== -->
+<script src="data.js"></script>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const programme = params.get("programme");
+  const subject = params.get("subject");
+
+  const list = document.getElementById("assignmentList");
+
+  // ===== DYNAMIC SEO =====
+  if (programme && subject) {
+    const title =
+      `IGNOU ${programme} ${subject} Solved Assignments 2025 | PDF Download`;
+
+    const description =
+      `Download IGNOU ${programme} ${subject} solved assignments for January and July sessions. Subject-wise assignment PDFs available.`;
+
+    document.getElementById("seoTitle").innerText = title;
+    document.getElementById("seoDescription")
+      .setAttribute("content", description);
+
+    document.getElementById("pageTitle").innerText =
+      `IGNOU ${programme} ${subject} Solved Assignments`;
+
+    document.getElementById("pageSubtitle").innerText =
+      `Subject-wise solved assignments for ${programme} ${subject}`;
+
+    document.getElementById("seoText").innerText =
+      `Here you can download IGNOU ${programme} ${subject} solved assignments for January and July sessions. Click on the course code to access the PDF.`;
+  }
+
+  // ===== FILTER DATA =====
+  const filtered = assignments.filter(a =>
+    a.level === programme &&
+    a.programme === subject &&
+    a.course !== "TEMP"
+  );
+
+  // ===== RENDER =====
+  if (!programme || !subject) {
+    list.innerHTML =
+      "<p style='text-align:center;color:#777;'>Please select programme and subject.</p>";
+  }
+  else if (filtered.length === 0) {
+    list.innerHTML =
+      "<p style='text-align:center;color:#777;'>Assignments will be updated soon.</p>";
+  }
+  else {
+    filtered.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <b>${item.course}</b><br>
+        Session: ${item.session}<br>
+        <a class="btn" href="${item.file}" target="_blank">Download PDF</a>
+      `;
+      list.appendChild(card);
+    });
+  }
+</script>
+
+</body>
+</html>
