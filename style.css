@@ -240,3 +240,34 @@ body {
   border-radius: 6px;
   font-size: 14px;
 }
+/* ===== LOCKED PDF BOX ===== */
+.lock-box {
+  border: 1px dashed #ccc;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fafafa;
+  text-align: center;
+}
+
+.lock-icon {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.lock-text {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.unlock-btn {
+  display: inline-block;
+  background: #25D366;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
