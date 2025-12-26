@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ghrasool426-png.github.io/assignments-portal/sitemap.xml
