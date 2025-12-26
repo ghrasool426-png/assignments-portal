@@ -33,37 +33,31 @@
 <!-- ===== CONTENT ===== -->
 <section class="assignment-section">
 
-  <!-- SEO TEXT -->
   <p class="seo-text" id="seoText">
     Select your programme and subject to view IGNOU solved assignments.
   </p>
 
-  <!-- ASSIGNMENT LIST -->
   <div id="assignmentList"></div>
 
 </section>
 
-<!-- ===== DATA ===== -->
 <script src="data.js"></script>
 
 <script>
   const params = new URLSearchParams(window.location.search);
   const programme = params.get("programme");
   const subject = params.get("subject");
-
   const list = document.getElementById("assignmentList");
 
-  // ===== DYNAMIC SEO =====
+  /* ===== SEO ===== */
   if (programme && subject) {
-    const title =
+    document.getElementById("seoTitle").innerText =
       `IGNOU ${programme} ${subject} Solved Assignments 2025 | PDF Download`;
 
-    const description =
-      `Download IGNOU ${programme} ${subject} solved assignments for January and July sessions. Subject-wise assignment PDFs available.`;
-
-    document.getElementById("seoTitle").innerText = title;
-    document.getElementById("seoDescription")
-      .setAttribute("content", description);
+    document.getElementById("seoDescription").setAttribute(
+      "content",
+      `Download IGNOU ${programme} ${subject} solved assignments for January and July sessions.`
+    );
 
     document.getElementById("pageTitle").innerText =
       `IGNOU ${programme} ${subject} Solved Assignments`;
@@ -72,17 +66,17 @@
       `Subject-wise solved assignments for ${programme} ${subject}`;
 
     document.getElementById("seoText").innerText =
-      `Here you can download IGNOU ${programme} ${subject} solved assignments for January and July sessions. Click on the course code to access the PDF.`;
+      `Here you can download IGNOU ${programme} ${subject} solved assignments for January and July sessions.`;
   }
 
-  // ===== FILTER DATA =====
+  /* ===== FILTER ===== */
   const filtered = assignments.filter(a =>
     a.level === programme &&
     a.programme === subject &&
     a.course !== "TEMP"
   );
 
-  // ===== RENDER =====
+  /* ===== RENDER ===== */
   if (!programme || !subject) {
     list.innerHTML =
       "<p style='text-align:center;color:#777;'>Please select programme and subject.</p>";
@@ -95,11 +89,24 @@
     filtered.forEach(item => {
       const card = document.createElement("div");
       card.className = "card";
+
+      // ✅ CHECK PDF EXISTENCE
+      const hasPDF =
+        item.file &&
+        item.file !== "#" &&
+        !item.file.includes("TEMP");
+
       card.innerHTML = `
         <b>${item.course}</b><br>
-        Session: ${item.session}<br>
-        <a class="btn" href="${item.file}" target="_blank">Download PDF</a>
+        Session: ${item.session}<br><br>
+
+        ${
+          hasPDF
+            ? `<a class="btn" href="${item.file}" target="_blank">Download PDF</a>`
+            : `<span style="color:#999;font-weight:600;">Coming Soon</span>`
+        }
       `;
+
       list.appendChild(card);
     });
   }
