@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- SEO TITLE -->
   <title id="seoTitle">IGNOU Solved Assignments</title>
 
-  <!-- SEO DESCRIPTION -->
   <meta name="description" id="seoDescription"
         content="Download IGNOU solved assignments subject-wise for MA, BA, BSc and Diploma programmes.">
 
@@ -40,13 +38,10 @@
 <script src="data.js"></script>
 
 <script>
-/* ================= SAFE URL READ ================= */
+/* ================= READ URL SAFELY ================= */
 const params = new URLSearchParams(window.location.search);
 
-const programme = (params.get("programme") || "")
-  .trim()
-  .toUpperCase();
-
+const programme = (params.get("programme") || "").trim();
 const subject = decodeURIComponent(params.get("subject") || "")
   .trim()
   .replace(/\s+/g, " ");
@@ -94,9 +89,8 @@ const maCourses = {
   "Journalism": ["MAJMC-01, MAJMC-02, MAJMC-03, MAJMC-04", "MAJMC-05, MAJMC-06, MAJMC-07, MAJMC-08"]
 };
 
-/* ================= MA ONLY (PAID) ================= */
+/* ================= MA ONLY ================= */
 if (programme === "MA") {
-
   const data = maCourses[subject];
 
   if (!data) {
@@ -129,11 +123,11 @@ if (programme === "MA") {
   return;
 }
 
-/* ================= BA / BSC / DIPLOMA ================= */
+/* ================= BA / BSc / DIPLOMA ================= */
 const filtered = assignments.filter(a =>
   a.level &&
   a.programme &&
-  a.level.toUpperCase() === programme &&
+  a.level.toLowerCase() === programme.toLowerCase() &&
   a.programme.toLowerCase() === subject.toLowerCase() &&
   a.course !== "TEMP"
 );
@@ -156,5 +150,4 @@ if (filtered.length === 0) {
 </script>
 
 </body>
-</html>
 </html>
