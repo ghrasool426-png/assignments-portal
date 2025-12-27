@@ -33,86 +33,60 @@ const subject = norm(rawSubject);
 const paidBox = document.getElementById("paidContent");
 const list = document.getElementById("assignmentList");
 
-if(!programme || !subject){
-  list.innerHTML = "<p style='text-align:center'>Invalid page</p>";
-}
-
 /* ===== HEADER ===== */
 document.getElementById("pageTitle").innerText =
-  `IGNOU ${programme} ${rawSubject} Assignments`;
+  `IGNOU ${programme} ${rawSubject ? rawSubject : ""} Assignments`;
 
 document.getElementById("pageSubtitle").innerText =
-  (programme==="MA"||programme==="MSC")
-  ? "1st Year & 2nd Year Solved Assignments"
+  (programme==="MA"||programme==="MSC"||programme==="BBA")
+  ? "Solved Assignments"
   : "Solved Assignments";
 
 /* ===== MA CODES ===== */
 const ma = {
   "english":[["MEG-01","MEG-02","MEG-03","MEG-04"],["MEG-05","MEG-06","MEG-07","MEG-08"]],
   "hindi":[["MHD-01","MHD-02","MHD-03","MHD-04"],["MHD-05","MHD-06","MHD-07","MHD-08"]],
-  "urdu":[["MUD-01","MUD-02","MUD-03","MUD-04"],["MUD-05","MUD-06","MUD-07","MUD-08"]],
-  "political science":[["MPS-01","MPS-02","MPS-03","MPS-04"],["MPS-05","MPS-06","MPS-07","MPS-08"]],
-  "history":[["MAH-01","MAH-02","MAH-03","MAH-04"],["MAH-05","MAH-06","MAH-07","MAH-08"]],
-  "sociology":[["MSO-01","MSO-02","MSO-03","MSO-04"],["MSO-05","MSO-06","MSO-07","MSO-08"]],
-  "psychology":[["MAPC-01","MAPC-02","MAPC-03","MAPC-04"],["MAPC-05","MAPC-06","MAPC-07","MAPC-08"]],
-  "economics":[["MEC-01","MEC-02","MEC-03","MEC-04"],["MEC-05","MEC-06","MEC-07","MEC-08"]],
-  "public administration":[["MPA-01","MPA-02","MPA-03","MPA-04"],["MPA-05","MPA-06","MPA-07","MPA-08"]],
-  "education":[["MAEDU-01","MAEDU-02","MAEDU-03","MAEDU-04"],["MAEDU-05","MAEDU-06","MAEDU-07","MAEDU-08"]],
-  "philosophy":[["MAPY-01","MAPY-02","MAPY-03","MAPY-04"],["MAPY-05","MAPY-06","MAPY-07","MAPY-08"]],
-  "anthropology":[["MANT-01","MANT-02","MANT-03","MANT-04"],["MANT-05","MANT-06","MANT-07","MANT-08"]],
-  "rural development":[["MARD-01","MARD-02","MARD-03","MARD-04"],["MARD-05","MARD-06","MARD-07","MARD-08"]],
-  "journalism":[["MAJMC-01","MAJMC-02","MAJMC-03","MAJMC-04"],["MAJMC-05","MAJMC-06","MAJMC-07","MAJMC-08"]]
+  "urdu":[["MUD-01","MUD-02","MUD-03","MUD-04"],["MUD-05","MUD-06","MUD-07","MUD-08"]]
 };
 
 /* ===== MSC CODES ===== */
 const msc = {
-  "geography":[["MGG-01","MGG-02","MGG-03","MGG-04"],["MGG-05","MGG-06","MGG-07","MGG-08"]],
-  "zoology":[["MZO-01","MZO-02","MZO-03","MZO-04"],["MZO-05","MZO-06","MZO-07","MZO-08"]],
-  "geoinformatics":[["MGI-01","MGI-02","MGI-03","MGI-04"],["MGI-05","MGI-06","MGI-07","MGI-08"]],
-  "mscfsqm":[["MFSM-01","MFSM-02","MFSM-03","MFSM-04"],["MFSM-05","MFSM-06","MFSM-07","MFSM-08"]],
-  "applied statistics":[["MSTA-01","MSTA-02","MSTA-03","MSTA-04"],["MSTA-05","MSTA-06","MSTA-07","MSTA-08"]],
-  "chemistry":[["MCH-01","MCH-02","MCH-03","MCH-04"],["MCH-05","MCH-06","MCH-07","MCH-08"]],
-  "environmental science":[["MEVS-01","MEVS-02","MEVS-03","MEVS-04"],["MEVS-05","MEVS-06","MEVS-07","MEVS-08"]],
-  "botany":[["MBOT-01","MBOT-02","MBOT-03","MBOT-04"],["MBOT-05","MBOT-06","MBOT-07","MBOT-08"]],
-  "msc ids":[["MIDS-01","MIDS-02","MIDS-03","MIDS-04"],["MIDS-05","MIDS-06","MIDS-07","MIDS-08"]]
+  "geography":[["MGG-01","MGG-02","MGG-03","MGG-04"],["MGG-05","MGG-06","MGG-07","MGG-08"]]
 };
 
-function paid(label,data){
-  paidBox.innerHTML = `
+/* ===== BBA CODES ===== */
+const bba = [
+  ["BBA-101","BBA-102","BBA-103","BBA-104"],
+  ["BBA-201","BBA-202","BBA-203","BBA-204"],
+  ["BBA-301","BBA-302","BBA-303","BBA-304"]
+];
+
+function paid(label, years){
+  paidBox.innerHTML = years.map((yr,i)=>`
     <div class="lock-box">
-      <h3>${label} ${rawSubject} – 1st Year</h3>
-      <ul>${data[0].map(x=>`<li>${x}</li>`).join("")}</ul>
+      <h3>${label} – ${i+1} Year</h3>
+      <ul>${yr.map(c=>`<li>${c}</li>`).join("")}</ul>
       <b>₹49 Only</b><br><br>
       <a class="unlock-btn"
-        href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20${label}%20${rawSubject}%201st%20Year%20Solved%20Assignments"
+        href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20${label}%20${i+1}%20Year%20Solved%20Assignments"
         target="_blank">Unlock on WhatsApp</a>
     </div>
-
-    <div class="lock-box">
-      <h3>${label} ${rawSubject} – 2nd Year</h3>
-      <ul>${data[1].map(x=>`<li>${x}</li>`).join("")}</ul>
-      <b>₹49 Only</b><br><br>
-      <a class="unlock-btn"
-        href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20${label}%20${rawSubject}%202nd%20Year%20Solved%20Assignments"
-        target="_blank">Unlock on WhatsApp</a>
-    </div>`;
+  `).join("");
 }
 
 /* ===== FLOW ===== */
 if(programme==="MA" && ma[subject]){
-  paid("MA",ma[subject]);
+  paid("MA "+rawSubject, ma[subject]);
 }
 else if(programme==="MSC" && msc[subject]){
-  paid("MSc",msc[subject]);
+  paid("MSc "+rawSubject, msc[subject]);
+}
+else if(programme==="BBA"){
+  paid("BBA", bba);
 }
 else{
-  const f = assignments.filter(a =>
-    a.level.toUpperCase()===programme &&
-    norm(a.programme)===subject
-  );
-  list.innerHTML = f.length
-    ? f.map(()=>`<div class="card"><b>${rawSubject}</b><br>Coming Soon</div>`).join("")
-    : "<p style='text-align:center'>Assignments coming soon</p>";
+  list.innerHTML =
+    "<p style='text-align:center'>Assignments coming soon</p>";
 }
 </script>
 
