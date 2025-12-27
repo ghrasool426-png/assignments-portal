@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>IGNOU Solved Assignments</title>
+
+  <meta name="description"
+        content="Download IGNOU solved assignments subject-wise for MA, BA, BSc, MSc and Diploma programmes.">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -15,39 +19,54 @@
 </header>
 
 <section class="assignment-section">
+
   <p class="seo-text" id="seoText"></p>
+
+  <!-- PAID CONTENT -->
   <div id="paidContent"></div>
+
+  <!-- FREE CONTENT -->
   <div id="assignmentList"></div>
+
 </section>
 
 <script src="data.js"></script>
 
 <script>
-function norm(t){ return t.toLowerCase().trim().replace(/\s+/g," "); }
+/* ================= HELPERS ================= */
+function normalize(txt) {
+  return txt.toLowerCase().trim().replace(/\s+/g, " ");
+}
 
-const p = new URLSearchParams(location.search);
-const programme = (p.get("programme")||"").toUpperCase();
-const rawSubject = decodeURIComponent(p.get("subject")||"");
-const subject = norm(rawSubject);
+/* ================= READ URL ================= */
+const params = new URLSearchParams(window.location.search);
+const programme = (params.get("programme") || "").toUpperCase();
+const rawSubject = decodeURIComponent(params.get("subject") || "");
+const subject = normalize(rawSubject);
 
 const paidBox = document.getElementById("paidContent");
 const list = document.getElementById("assignmentList");
 
-if(!programme || !subject){
-  list.innerHTML = "<p style='text-align:center'>Invalid page</p>";
+/* ================= SAFETY ================= */
+if (!programme || !subject) {
+  list.innerHTML = "<p style='text-align:center;color:#777;'>Invalid page</p>";
+  throw new Error("Invalid URL");
 }
 
-/* ===== HEADER ===== */
+/* ================= HEADER ================= */
 document.getElementById("pageTitle").innerText =
   `IGNOU ${programme} ${rawSubject} Assignments`;
 
 document.getElementById("pageSubtitle").innerText =
-  (programme==="MA"||programme==="MSC")
-  ? "1st Year & 2nd Year Solved Assignments"
-  : "Solved Assignments";
+  (programme === "MA" || programme === "MSC")
+    ? "1st Year & 2nd Year Solved Assignments"
+    : "Solved Assignments";
 
-/* ===== MA CODES ===== */
-const ma = {
+document.getElementById("seoText").innerText =
+  `Download IGNOU ${programme} ${rawSubject} solved assignments.`;
+
+/* ================= MA CODES ================= */
+const maCodes = {
   "english":[["MEG-01","MEG-02","MEG-03","MEG-04"],["MEG-05","MEG-06","MEG-07","MEG-08"]],
   "hindi":[["MHD-01","MHD-02","MHD-03","MHD-04"],["MHD-05","MHD-06","MHD-07","MHD-08"]],
   "urdu":[["MUD-01","MUD-02","MUD-03","MUD-04"],["MUD-05","MUD-06","MUD-07","MUD-08"]],
@@ -64,8 +83,8 @@ const ma = {
   "journalism":[["MAJMC-01","MAJMC-02","MAJMC-03","MAJMC-04"],["MAJMC-05","MAJMC-06","MAJMC-07","MAJMC-08"]]
 };
 
-/* ===== MSC CODES ===== */
-const msc = {
+/* ================= MSC CODES ================= */
+const mscCodes = {
   "geography":[["MGG-01","MGG-02","MGG-03","MGG-04"],["MGG-05","MGG-06","MGG-07","MGG-08"]],
   "zoology":[["MZO-01","MZO-02","MZO-03","MZO-04"],["MZO-05","MZO-06","MZO-07","MZO-08"]],
   "geoinformatics":[["MGI-01","MGI-02","MGI-03","MGI-04"],["MGI-05","MGI-06","MGI-07","MGI-08"]],
@@ -77,35 +96,60 @@ const msc = {
   "msc ids":[["MIDS-01","MIDS-02","MIDS-03","MIDS-04"],["MIDS-05","MIDS-06","MIDS-07","MIDS-08"]]
 };
 
-function paid(label,data){
+/* ================= RENDER PAID ================= */
+function renderPaid(label, data) {
   paidBox.innerHTML = `
     <div class="lock-box">
       <h3>${label} ${rawSubject} – 1st Year</h3>
-      <ul>${data[0].map(x=>`<li>${x}</li>`).join("")}</ul>
-      <b>₹49 Only</b>
+      <ul>${data[0].map(c => `<li>${c}</li>`).join("")}</ul>
+      <div class="price">₹49 Only</div>
+      <a class="unlock-btn"
+         href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20${label}%20${rawSubject}%201st%20Year%20Solved%20Assignments"
+         target="_blank">🔓 Unlock on WhatsApp</a>
     </div>
+
     <div class="lock-box">
       <h3>${label} ${rawSubject} – 2nd Year</h3>
-      <ul>${data[1].map(x=>`<li>${x}</li>`).join("")}</ul>
-      <b>₹49 Only</b>
-    </div>`;
+      <ul>${data[1].map(c => `<li>${c}</li>`).join("")}</ul>
+      <div class="price">₹49 Only</div>
+      <a class="unlock-btn"
+         href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20${label}%20${rawSubject}%202nd%20Year%20Solved%20Assignments"
+         target="_blank">🔓 Unlock on WhatsApp</a>
+    </div>
+  `;
 }
 
-/* ===== FLOW (NO RETURN!) ===== */
-if(programme==="MA" && ma[subject]){
-  paid("MA",ma[subject]);
+/* ================= PAID LOGIC ================= */
+if (programme === "MA" && maCodes[subject]) {
+  renderPaid("MA", maCodes[subject]);
+  return;
 }
-else if(programme==="MSC" && msc[subject]){
-  paid("MSc",msc[subject]);
+
+if (programme === "MSC" && mscCodes[subject]) {
+  renderPaid("MSc", mscCodes[subject]);
+  return;
 }
-else{
-  const f = assignments.filter(a =>
-    a.level.toUpperCase()===programme &&
-    norm(a.programme)===subject
-  );
-  list.innerHTML = f.length
-    ? f.map(()=>`<div class="card"><b>${rawSubject}</b><br>Coming Soon</div>`).join("")
-    : "<p style='text-align:center'>Assignments coming soon</p>";
+
+/* ================= FREE PROGRAMMES ================= */
+const filtered = assignments.filter(a =>
+  a.level.toUpperCase() === programme &&
+  normalize(a.programme) === subject
+);
+
+if (filtered.length === 0) {
+  list.innerHTML =
+    "<p style='text-align:center;color:#777;'>Assignments will be updated soon.</p>";
+} else {
+  filtered.forEach(a => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML =
+      a.course === "TEMP"
+        ? `<b>${rawSubject}</b><br><span style="color:#999;">Coming Soon</span>`
+        : `<b>${a.course}</b><br>Session: ${a.session}<br><br>
+           <a class="btn" href="${a.file}" target="_blank">Download PDF</a>`;
+    list.appendChild(card);
+  });
 }
 </script>
 
