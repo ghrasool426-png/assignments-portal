@@ -22,10 +22,10 @@
 
   <p class="seo-text" id="seoText"></p>
 
-  <!-- PAID CONTENT (MA / MSC) -->
+  <!-- PAID CONTENT -->
   <div id="paidContent"></div>
 
-  <!-- FREE CONTENT (BA / BSc / Diploma) -->
+  <!-- FREE CONTENT -->
   <div id="assignmentList"></div>
 
 </section>
@@ -33,12 +33,16 @@
 <script src="data.js"></script>
 
 <script>
-/* ================= NORMALIZE ================= */
+/* ========== STRONG NORMALIZE (FINAL FIX) ========== */
 function normalize(text) {
-  return text.toLowerCase().trim().replace(/\s+/g, " ");
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")   // 🔥 remove dot, comma, symbols
+    .trim()
+    .replace(/\s+/g, " ");
 }
 
-/* ================= READ URL ================= */
+/* ========== READ URL ========== */
 const params = new URLSearchParams(window.location.search);
 
 const programme = (params.get("programme") || "").trim().toUpperCase();
@@ -48,13 +52,13 @@ const subject = normalize(rawSubject);
 const paidBox = document.getElementById("paidContent");
 const list = document.getElementById("assignmentList");
 
-/* ================= SAFETY ================= */
+/* ========== SAFETY ========== */
 if (!programme || !subject) {
   list.innerHTML = "<p style='text-align:center;color:#777;'>Invalid page</p>";
   throw new Error("Invalid URL");
 }
 
-/* ================= HEADER ================= */
+/* ========== HEADER ========== */
 document.getElementById("pageTitle").innerText =
   `IGNOU ${programme} ${rawSubject} Assignments`;
 
@@ -66,7 +70,7 @@ document.getElementById("pageSubtitle").innerText =
 document.getElementById("seoText").innerText =
   `Download IGNOU ${programme} ${rawSubject} solved assignments.`;
 
-/* ================= MA COURSE CODES ================= */
+/* ========== MA COURSE CODES ========== */
 const maCourseCodes = {
   "english": [["MEG-01","MEG-02","MEG-03","MEG-04"],["MEG-05","MEG-06","MEG-07","MEG-08"]],
   "hindi": [["MHD-01","MHD-02","MHD-03","MHD-04"],["MHD-05","MHD-06","MHD-07","MHD-08"]],
@@ -84,7 +88,7 @@ const maCourseCodes = {
   "journalism": [["MAJMC-01","MAJMC-02","MAJMC-03","MAJMC-04"],["MAJMC-05","MAJMC-06","MAJMC-07","MAJMC-08"]]
 };
 
-/* ================= MSC COURSE CODES ================= */
+/* ========== MSC COURSE CODES ========== */
 const mscCourseCodes = {
   "geography": [["MGG-01","MGG-02","MGG-03","MGG-04"],["MGG-05","MGG-06","MGG-07","MGG-08"]],
   "zoology": [["MZO-01","MZO-02","MZO-03","MZO-04"],["MZO-05","MZO-06","MZO-07","MZO-08"]],
@@ -97,7 +101,7 @@ const mscCourseCodes = {
   "msc ids": [["MIDS-01","MIDS-02","MIDS-03","MIDS-04"],["MIDS-05","MIDS-06","MIDS-07","MIDS-08"]]
 };
 
-/* ================= RENDER PAID ================= */
+/* ========== RENDER PAID ========== */
 function renderPaid(label, data) {
   const y1 = data[0].map(c => `<li>${c}</li>`).join("");
   const y2 = data[1].map(c => `<li>${c}</li>`).join("");
@@ -123,23 +127,21 @@ function renderPaid(label, data) {
   `;
 }
 
-/* ================= MA ================= */
+/* ========== MA / MSC ========== */
 if (programme === "MA" && maCourseCodes[subject]) {
   renderPaid("MA", maCourseCodes[subject]);
   return;
 }
 
-/* ================= MSC ================= */
 if (programme === "MSC" && mscCourseCodes[subject]) {
   renderPaid("MSc", mscCourseCodes[subject]);
   return;
 }
 
-/* ================= FREE PROGRAMMES ================= */
+/* ========== FREE PROGRAMMES ========== */
 const filtered = assignments.filter(item =>
   item.level &&
-  item.programme &&
-  item.level.toUpperCase() === programme &&
+  normalize(item.level) === normalize(programme) &&
   normalize(item.programme) === subject
 );
 
