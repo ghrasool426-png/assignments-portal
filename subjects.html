@@ -2,45 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SUBJECT TEST</title>
+
+  <title>IGNOU Subjects</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: Arial; padding:20px }
-    .card { padding:15px; margin:10px 0; background:#f4f4f4; border-radius:6px; cursor:pointer }
-  </style>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>MA Subjects (Hard Test)</h1>
+<header class="main-header">
+  <h1 id="programmeTitle">Subjects</h1>
+  <p>Select your subject</p>
+</header>
 
-<div id="subjectGrid"></div>
+<section class="subject-section">
+  <div id="subjectGrid" class="subject-grid"></div>
+</section>
+
+<script src="data.js"></script>
 
 <script>
-  const subjects = [
-    "English",
-    "Hindi",
-    "Urdu",
-    "Political Science",
-    "History",
-    "Sociology",
-    "Psychology",
-    "Economics",
-    "Public Administration",
-    "Education",
-    "Philosophy",
-    "Anthropology",
-    "Rural Development",
-    "Journalism"
-  ];
+  const params = new URLSearchParams(window.location.search);
+  const programme = (params.get("programme") || "").toUpperCase();
 
+  const title = document.getElementById("programmeTitle");
   const grid = document.getElementById("subjectGrid");
 
+  if (!programme) {
+    grid.innerHTML = "<p>No programme selected</p>";
+    title.innerText = "Subjects";
+  } else {
+    title.innerText = programme + " Subjects";
+  }
+
+  const subjects = [...new Set(
+    assignments
+      .filter(a => a.level === programme)
+      .map(a => a.programme)
+  )];
+
+  if (subjects.length === 0) {
+    grid.innerHTML = "<p>No subjects found</p>";
+  }
+
   subjects.forEach(sub => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerText = sub;
-    grid.appendChild(div);
+    const link = document.createElement("a");
+    link.href = `assignments.html?programme=${programme}&subject=${encodeURIComponent(sub)}`;
+    link.className = "subject-card";
+    link.innerHTML = `<h3>${sub}</h3>`;
+    grid.appendChild(link);
   });
 </script>
 
