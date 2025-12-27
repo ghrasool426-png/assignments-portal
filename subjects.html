@@ -16,48 +16,74 @@
 
 <header class="main-header">
   <h1 id="programmeTitle">Subjects</h1>
-  <p>Select your subject</p>
+  <p id="programmeSubtitle">Select your subject</p>
 </header>
 
 <section class="subject-section">
   <div id="subjectGrid" class="subject-grid"></div>
 </section>
 
+<!-- LOAD DATA -->
 <script src="data.js"></script>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const programme = (params.get("programme") || "").toUpperCase();
+/* ================= BASIC DOM ================= */
+const grid = document.getElementById("subjectGrid");
+const title = document.getElementById("programmeTitle");
+const subtitle = document.getElementById("programmeSubtitle");
 
-  document.getElementById("programmeTitle").innerText =
-    programme + " Subjects";
+/* ================= READ URL ================= */
+const params = new URLSearchParams(window.location.search);
+const programme = (params.get("programme") || "").trim().toUpperCase();
 
-  const grid = document.getElementById("subjectGrid");
+/* ================= PROGRAMME CHECK ================= */
+if (!programme) {
+  title.innerText = "No Programme";
+  grid.innerHTML =
+    "<p style='text-align:center;color:#777;'>Programme not selected.</p>";
+  throw new Error("Programme missing");
+}
 
-  if (!programme) {
-    grid.innerHTML = "<p>No programme selected</p>";
-  }
+title.innerText = programme + " Subjects";
+subtitle.innerText = "Choose a subject for " + programme;
 
-  const subjects = [...new Set(
+/* ================= DATA.JS SAFETY CHECK ================= */
+if (typeof assignments === "undefined") {
+  grid.innerHTML =
+    "<p style='text-align:center;color:red;'>Error: data.js not loaded</p>";
+  throw new Error("assignments not defined");
+}
+
+/* ================= SUBJECT LIST ================= */
+const subjects = [
+  ...new Set(
     assignments
-      .filter(a => a.level === programme)
+      .filter(a =>
+        a.level &&
+        a.programme &&
+        a.level.toUpperCase() === programme
+      )
       .map(a => a.programme)
-  )];
+  )
+];
 
-  if (subjects.length === 0) {
-    grid.innerHTML = "<p>No subjects found</p>";
-  }
+/* ================= NO SUBJECT CASE ================= */
+if (subjects.length === 0) {
+  grid.innerHTML =
+    "<p style='text-align:center;color:#777;'>No subjects found.</p>";
+}
 
-  subjects.forEach(sub => {
-    const card = document.createElement("div");
-    card.className = "subject-card";
-    card.innerHTML = `<h3>${sub}</h3>`;
-    card.onclick = () => {
-      window.location.href =
-        `assignments.html?programme=${programme}&subject=${encodeURIComponent(sub)}`;
-    };
-    grid.appendChild(card);
-  });
+/* ================= RENDER CARDS ================= */
+subjects.forEach(sub => {
+  const card = document.createElement("div");
+  card.className = "subject-card";
+  card.innerHTML = `<h3>${sub}</h3>`;
+  card.onclick = () => {
+    window.location.href =
+      `assignments.html?programme=${programme}&subject=${encodeURIComponent(sub)}`;
+  };
+  grid.appendChild(card);
+});
 </script>
 
 </body>
