@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
   <title>IGNOU Subjects</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -24,36 +21,78 @@
 <script src="data.js"></script>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const programme = (params.get("programme") || "").toUpperCase();
+/* ========= READ PROGRAMME ========= */
+const params = new URLSearchParams(window.location.search);
+const programme = (params.get("programme") || "").trim().toUpperCase();
 
-  const title = document.getElementById("programmeTitle");
-  const grid = document.getElementById("subjectGrid");
+const title = document.getElementById("programmeTitle");
+const grid = document.getElementById("subjectGrid");
 
-  if (!programme) {
-    grid.innerHTML = "<p>No programme selected</p>";
-    title.innerText = "Subjects";
-  } else {
-    title.innerText = programme + " Subjects";
-  }
+/* ========= TITLE ========= */
+if (!programme) {
+  title.innerText = "Subjects";
+  grid.innerHTML = "<p style='text-align:center'>No programme selected</p>";
+  throw new Error("Programme missing");
+}
 
-  const subjects = [...new Set(
-    assignments
-      .filter(a => a.level === programme)
-      .map(a => a.programme)
-  )];
+title.innerText = programme + " Subjects";
 
-  if (subjects.length === 0) {
-    grid.innerHTML = "<p>No subjects found</p>";
-  }
+/* ========= HARD SUBJECTS (PAID) ========= */
+const maSubjects = [
+  "English","Hindi","Urdu","Political Science","History","Sociology",
+  "Psychology","Economics","Public Administration","Education",
+  "Philosophy","Anthropology","Rural Development","Journalism"
+];
 
+const mscSubjects = [
+  "Geography",
+  "Zoology",
+  "Geoinformatics",
+  "MSCFSQM",
+  "Applied Statistics",
+  "Chemistry",
+  "Environmental Science",
+  "Botany",
+  "MSC IDS"
+];
+
+/* ========= RENDER FUNCTION ========= */
+function renderSubjects(subjects) {
+  grid.innerHTML = "";
   subjects.forEach(sub => {
-    const link = document.createElement("a");
-    link.href = `assignments.html?programme=${programme}&subject=${encodeURIComponent(sub)}`;
-    link.className = "subject-card";
-    link.innerHTML = `<h3>${sub}</h3>`;
-    grid.appendChild(link);
+    const card = document.createElement("a");
+    card.className = "subject-card";
+    card.href =
+      `assignments.html?programme=${programme}&subject=${encodeURIComponent(sub)}`;
+    card.innerHTML = `<h3>${sub}</h3>`;
+    grid.appendChild(card);
   });
+}
+
+/* ========= PROGRAMME SWITCH ========= */
+if (programme === "MA") {
+  renderSubjects(maSubjects);
+  return;
+}
+
+if (programme === "MSC") {
+  renderSubjects(mscSubjects);
+  return;
+}
+
+/* ========= FREE PROGRAMMES (BA / BSC / DIPLOMA) ========= */
+const subjects = [...new Set(
+  assignments
+    .filter(a => a.level && a.level.toUpperCase() === programme)
+    .map(a => a.programme.trim())
+)];
+
+if (subjects.length === 0) {
+  grid.innerHTML =
+    "<p style='text-align:center;color:#777;'>No subjects found</p>";
+} else {
+  renderSubjects(subjects);
+}
 </script>
 
 </body>
