@@ -2,7 +2,6 @@ const assignments = [
 
   /* =========================
      MA – SUBJECT SEED (PAID)
-     (sirf subject show karne ke liye)
   ========================== */
   { level: "MA", programme: "English", course: "TEMP", session: "Jan", file: "#" },
   { level: "MA", programme: "Hindi", course: "TEMP", session: "Jan", file: "#" },
@@ -21,7 +20,7 @@ const assignments = [
 
   /* =========================
      MSC – SUBJECT SEED (PAID)
-     ⚠️ EXACT NAMES (VERY IMPORTANT)
+     ⚠️ names must match assignment.html
   ========================== */
   { level: "MSC", programme: "Geography", course: "TEMP", session: "Jan", file: "#" },
   { level: "MSC", programme: "Zoology", course: "TEMP", session: "Jan", file: "#" },
@@ -34,7 +33,8 @@ const assignments = [
   { level: "MSC", programme: "MSC IDS", course: "TEMP", session: "Jan", file: "#" },
 
   /* =========================
-     BA – FREE (COMING SOON)
+     BA – SUBJECT SEED
+     (₹9 logic assignment.html me hai)
   ========================== */
   { level: "BA", programme: "History", course: "TEMP", session: "Jan", file: "#" },
   { level: "BA", programme: "Political Science", course: "TEMP", session: "Jan", file: "#" },
