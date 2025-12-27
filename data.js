@@ -2,6 +2,7 @@ const assignments = [
 
   /* =========================
      MA – SUBJECT SEED (PAID)
+     (sirf subject show karne ke liye)
   ========================== */
   { level: "MA", programme: "English", course: "TEMP", session: "Jan", file: "#" },
   { level: "MA", programme: "Hindi", course: "TEMP", session: "Jan", file: "#" },
@@ -19,42 +20,8 @@ const assignments = [
   { level: "MA", programme: "Journalism", course: "TEMP", session: "Jan", file: "#" },
 
   /* =========================
-     BA – SUBJECT SEED
-  ========================== */
-  { level: "BA", programme: "History", course: "TEMP", session: "Jan", file: "#" },
-  { level: "BA", programme: "History", course: "TEMP", session: "July", file: "#" },
-
-  { level: "BA", programme: "Political Science", course: "TEMP", session: "Jan", file: "#" },
-  { level: "BA", programme: "Political Science", course: "TEMP", session: "July", file: "#" },
-
-  { level: "BA", programme: "Sociology", course: "TEMP", session: "Jan", file: "#" },
-  { level: "BA", programme: "Sociology", course: "TEMP", session: "July", file: "#" },
-
-  { level: "BA", programme: "English", course: "TEMP", session: "Jan", file: "#" },
-  { level: "BA", programme: "English", course: "TEMP", session: "July", file: "#" },
-
-  { level: "BA", programme: "Hindi", course: "TEMP", session: "Jan", file: "#" },
-  { level: "BA", programme: "Hindi", course: "TEMP", session: "July", file: "#" },
-
-  { level: "BA", programme: "Public Administration", course: "TEMP", session: "Jan", file: "#" },
-  { level: "BA", programme: "Public Administration", course: "TEMP", session: "July", file: "#" },
-
-  { level: "BA", programme: "Philosophy", course: "TEMP", session: "Jan", file: "#" },
-  { level: "BA", programme: "Philosophy", course: "TEMP", session: "July", file: "#" },
-
-  { level: "BA", programme: "Sanskrit", course: "TEMP", session: "Jan", file: "#" },
-  { level: "BA", programme: "Sanskrit", course: "TEMP", session: "July", file: "#" },
-
-  { level: "BA", programme: "Education", course: "TEMP", session: "Jan", file: "#" },
-  { level: "BA", programme: "Education", course: "TEMP", session: "July", file: "#" },
-
-  /* =========================
-     BSC
-  ========================== */
-  { level: "BSC", programme: "Mathematics", course: "TEMP", session: "Jan", file: "#" },
-
-  /* =========================
-     MSC – SUBJECT SEED (NEW)
+     MSC – SUBJECT SEED (PAID)
+     ⚠️ EXACT NAMES (VERY IMPORTANT)
   ========================== */
   { level: "MSC", programme: "Geography", course: "TEMP", session: "Jan", file: "#" },
   { level: "MSC", programme: "Zoology", course: "TEMP", session: "Jan", file: "#" },
@@ -64,7 +31,25 @@ const assignments = [
   { level: "MSC", programme: "Chemistry", course: "TEMP", session: "Jan", file: "#" },
   { level: "MSC", programme: "Environmental Science", course: "TEMP", session: "Jan", file: "#" },
   { level: "MSC", programme: "Botany", course: "TEMP", session: "Jan", file: "#" },
-  { level: "MSC", programme: "MSc IDS", course: "TEMP", session: "Jan", file: "#" },
+  { level: "MSC", programme: "MSC IDS", course: "TEMP", session: "Jan", file: "#" },
+
+  /* =========================
+     BA – FREE (COMING SOON)
+  ========================== */
+  { level: "BA", programme: "History", course: "TEMP", session: "Jan", file: "#" },
+  { level: "BA", programme: "Political Science", course: "TEMP", session: "Jan", file: "#" },
+  { level: "BA", programme: "Sociology", course: "TEMP", session: "Jan", file: "#" },
+  { level: "BA", programme: "English", course: "TEMP", session: "Jan", file: "#" },
+  { level: "BA", programme: "Hindi", course: "TEMP", session: "Jan", file: "#" },
+  { level: "BA", programme: "Public Administration", course: "TEMP", session: "Jan", file: "#" },
+  { level: "BA", programme: "Philosophy", course: "TEMP", session: "Jan", file: "#" },
+  { level: "BA", programme: "Sanskrit", course: "TEMP", session: "Jan", file: "#" },
+  { level: "BA", programme: "Education", course: "TEMP", session: "Jan", file: "#" },
+
+  /* =========================
+     BSC
+  ========================== */
+  { level: "BSC", programme: "Mathematics", course: "TEMP", session: "Jan", file: "#" },
 
   /* =========================
      DIPLOMA
