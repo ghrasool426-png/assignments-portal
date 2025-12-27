@@ -3,159 +3,132 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- SEO -->
-  <title id="seoTitle">IGNOU Solved Assignments</title>
-  <meta name="description" id="seoDescription"
+  <title>IGNOU Solved Assignments</title>
+
+  <meta name="description"
         content="Download IGNOU solved assignments subject-wise for MA, BA, BSc and Diploma programmes.">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="canonical"
-        href="https://ghrasool426-png.github.io/assignments-portal/assignments.html">
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
 <header class="main-header">
   <h1 id="pageTitle">IGNOU Solved Assignments</h1>
-  <p id="pageSubtitle">Download subject-wise solved assignments</p>
+  <p id="pageSubtitle">Subject-wise assignments</p>
 </header>
 
-<!-- ===== CONTENT ===== -->
 <section class="assignment-section">
 
   <p class="seo-text" id="seoText"></p>
 
-  <!-- MA PAID CONTENT -->
-  <div id="yearInfo"></div>
+  <!-- MA CONTENT -->
+  <div id="maContent"></div>
 
-  <!-- NON-MA CONTENT -->
+  <!-- OTHER PROGRAMMES -->
   <div id="assignmentList"></div>
 
 </section>
 
-<!-- ===== DATA ===== -->
 <script src="data.js"></script>
 
 <script>
-/* ================= URL PARAMS ================= */
+/* ================= READ URL ================= */
 const params = new URLSearchParams(window.location.search);
+const programme = params.get("programme");
+const subject = params.get("subject");
 
-let programme = params.get("programme") || "";
-let subject   = params.get("subject") || "";
-
-programme = programme.trim().toUpperCase();
-subject   = decodeURIComponent(subject).trim().replace(/\s+/g, " ");
-
-const yearInfo = document.getElementById("yearInfo");
+const maBox = document.getElementById("maContent");
 const list = document.getElementById("assignmentList");
 
-/* ================= SEO ================= */
-if (programme && subject) {
-  document.getElementById("seoTitle").innerText =
-    `IGNOU ${programme} ${subject} Solved Assignments 2025`;
-
-  document.getElementById("seoDescription").setAttribute(
-    "content",
-    `Get IGNOU ${programme} ${subject} solved assignments for latest sessions.`
-  );
-
-  document.getElementById("pageTitle").innerText =
-    `IGNOU ${programme} ${subject} Solved Assignments`;
-
-  document.getElementById("pageSubtitle").innerText =
-    programme === "MA"
-      ? `1st Year & 2nd Year – ${subject}`
-      : `Solved Assignments – ${subject}`;
-
-  document.getElementById("seoText").innerText =
-    `Download IGNOU ${programme} ${subject} solved assignments easily.`;
+/* ================= SAFETY CHECK ================= */
+if (!programme || !subject) {
+  list.innerHTML = "<p style='text-align:center;color:#777;'>Invalid page</p>";
 }
 
-/* ================= MA COURSE MAP ================= */
+/* ================= HEADER ================= */
+document.getElementById("pageTitle").innerText =
+  `IGNOU ${programme} ${subject} Assignments`;
+
+document.getElementById("pageSubtitle").innerText =
+  programme === "MA"
+    ? "1st Year & 2nd Year Solved Assignments"
+    : "Solved Assignments";
+
+/* ================= MA PAID SYSTEM ================= */
 const maCourses = {
-  "English": ["MEG-01, MEG-02, MEG-03, MEG-04", "MEG-05, MEG-06, MEG-07, MEG-08"],
-  "Hindi": ["MHD-01, MHD-02, MHD-03, MHD-04", "MHD-05, MHD-06, MHD-07, MHD-08"],
-  "Urdu": ["MUD-01, MUD-02, MUD-03, MUD-04", "MUD-05, MUD-06, MUD-07, MUD-08"],
-  "Political Science": ["MPS-01, MPS-02, MPS-03, MPS-04", "MPS-05, MPS-06, MPS-07, MPS-08"],
-  "History": ["MAH-01, MAH-02, MAH-03, MAH-04", "MAH-05, MAH-06, MAH-07, MAH-08"],
-  "Sociology": ["MSO-01, MSO-02, MSO-03, MSO-04", "MSO-05, MSO-06, MSO-07, MSO-08"],
-  "Psychology": ["MAPC-01, MAPC-02, MAPC-03, MAPC-04", "MAPC-05, MAPC-06, MAPC-07, MAPC-08"],
-  "Economics": ["MEC-01, MEC-02, MEC-03, MEC-04", "MEC-05, MEC-06, MEC-07, MEC-08"],
-  "Public Administration": ["MPA-01, MPA-02, MPA-03, MPA-04", "MPA-05, MPA-06, MPA-07, MPA-08"],
-  "Education": ["MAEDU-01, MAEDU-02, MAEDU-03, MAEDU-04", "MAEDU-05, MAEDU-06, MAEDU-07, MAEDU-08"],
-  "Philosophy": ["MAPY-01, MAPY-02, MAPY-03, MAPY-04", "MAPY-05, MAPY-06, MAPY-07, MAPY-08"],
-  "Anthropology": ["MANT-01, MANT-02, MANT-03, MANT-04", "MANT-05, MANT-06, MANT-07, MANT-08"],
-  "Rural Development": ["MARD-01, MARD-02, MARD-03, MARD-04", "MARD-05, MARD-06, MARD-07, MARD-08"],
-  "Journalism": ["MAJMC-01, MAJMC-02, MAJMC-03, MAJMC-04", "MAJMC-05, MAJMC-06, MAJMC-07, MAJMC-08"]
+  "English": true,
+  "Hindi": true,
+  "Urdu": true,
+  "Political Science": true,
+  "History": true,
+  "Sociology": true,
+  "Psychology": true,
+  "Economics": true,
+  "Public Administration": true,
+  "Education": true,
+  "Philosophy": true,
+  "Anthropology": true,
+  "Rural Development": true,
+  "Journalism": true
 };
 
-/* ================= MA ONLY (PAID SYSTEM) ================= */
-if (programme === "MA") {
+if (programme === "MA" && maCourses[subject]) {
 
-  const data = maCourses[subject];
+  maBox.innerHTML = `
+    <div class="lock-box">
+      <h3>MA ${subject} – 1st Year</h3>
+      <p>4 Solved Assignments</p>
+      <b>₹49 Only</b><br><br>
+      <a class="unlock-btn"
+        href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%201st%20Year%20Solved%20Assignments."
+        target="_blank">Unlock on WhatsApp</a>
+    </div>
 
-  if (!data) {
-    yearInfo.innerHTML =
-      `<p style="text-align:center;color:#777;">
-        Assignments for <b>${subject}</b> will be added soon.
-      </p>`;
-  } else {
-    yearInfo.innerHTML = `
-      <div class="lock-box">
-        <h3>MA ${subject} – 1st Year</h3>
-        <p><b>Course Codes:</b><br>${data[0]}</p>
-        <b>₹49 Only</b><br><br>
-        <a class="unlock-btn"
-          href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%201st%20Year%20Solved%20Assignments"
-          target="_blank">Unlock on WhatsApp</a>
-      </div>
+    <div class="lock-box" style="margin-top:20px;">
+      <h3>MA ${subject} – 2nd Year</h3>
+      <p>4 Solved Assignments</p>
+      <b>₹49 Only</b><br><br>
+      <a class="unlock-btn"
+        href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%202nd%20Year%20Solved%20Assignments."
+        target="_blank">Unlock on WhatsApp</a>
+    </div>
+  `;
 
-      <div class="lock-box" style="margin-top:25px;">
-        <h3>MA ${subject} – 2nd Year</h3>
-        <p><b>Course Codes:</b><br>${data[1]}</p>
-        <b>₹49 Only</b><br><br>
-        <a class="unlock-btn"
-          href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%202nd%20Year%20Solved%20Assignments"
-          target="_blank">Unlock on WhatsApp</a>
-      </div>
-    `;
-  }
-
-  /* MA me PDF cards nahi */
+  list.innerHTML = "";
   return;
 }
 
-/* ================= NON-MA (FREE / PDF) ================= */
-if (typeof assignments === "undefined") {
-  list.innerHTML =
-    "<p style='text-align:center;color:red;'>Data not available.</p>";
-  return;
-}
-
-const filtered = assignments.filter(a =>
-  a.level &&
-  a.programme &&
-  a.level.toUpperCase() === programme &&
-  a.programme.trim().toLowerCase() === subject.toLowerCase() &&
-  a.course !== "TEMP"
+/* ================= BA / BSc / DIPLOMA ================= */
+const filtered = assignments.filter(item =>
+  item.level === programme &&
+  item.programme === subject
 );
 
 if (filtered.length === 0) {
   list.innerHTML =
     "<p style='text-align:center;color:#777;'>Assignments will be updated soon.</p>";
-} else {
+}
+else {
   filtered.forEach(item => {
     const card = document.createElement("div");
     card.className = "card";
-    card.innerHTML = `
-      <b>${item.course}</b><br>
-      Session: ${item.session}<br><br>
-      <a class="btn" href="${item.file}" target="_blank">Download PDF</a>
-    `;
+
+    if (item.course === "TEMP") {
+      card.innerHTML = `
+        <b>${subject}</b><br>
+        <span style="color:#999;">Coming Soon</span>
+      `;
+    } else {
+      card.innerHTML = `
+        <b>${item.course}</b><br>
+        Session: ${item.session}<br><br>
+        <a class="btn" href="${item.file}" target="_blank">Download PDF</a>
+      `;
+    }
+
     list.appendChild(card);
   });
 }
