@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,51 +38,63 @@
 <script src="data.js"></script>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const programme = params.get("programme") || "IGNOU";
+/* ================= SAFE URL READ ================= */
+const params = new URLSearchParams(window.location.search);
 
-  // ===== SEO + HEADINGS =====
-  const titleText = `IGNOU ${programme} Subjects | Solved Assignments`;
-  const descText = `Download IGNOU ${programme} subject-wise solved assignments for January and July sessions.`;
+const programme = (params.get("programme") || "IGNOU")
+  .trim()
+  .toUpperCase();
 
-  document.getElementById("seoTitle").innerText = titleText;
-  document.getElementById("seoDescription").setAttribute("content", descText);
+/* ================= SEO + HEADINGS ================= */
+document.getElementById("seoTitle").innerText =
+  `IGNOU ${programme} Subjects | Solved Assignments`;
 
-  document.getElementById("programmeTitle").innerText =
-    programme + " Subjects";
+document.getElementById("seoDescription").setAttribute(
+  "content",
+  `Download IGNOU ${programme} subject-wise solved assignments for January and July sessions.`
+);
 
-  document.getElementById("programmeSubtitle").innerText =
-    "Choose a subject for " + programme + " programme";
+document.getElementById("programmeTitle").innerText =
+  programme + " Subjects";
 
-  // ===== SUBJECT CARDS =====
-  const subjectGrid = document.getElementById("subjectGrid");
+document.getElementById("programmeSubtitle").innerText =
+  "Choose a subject for " + programme + " programme";
 
-  const subjects = [
-    ...new Set(
-      assignments
-        .filter(a => a.level === programme)
-        .map(a => a.programme)
-    )
-  ];
+/* ================= SUBJECT CARDS ================= */
+const subjectGrid = document.getElementById("subjectGrid");
 
-  if (subjects.length === 0) {
-    subjectGrid.innerHTML =
-      "<p style='text-align:center;color:#777;'>No subjects found.</p>";
-  }
+/* Collect unique subjects safely */
+const subjects = [
+  ...new Set(
+    assignments
+      .filter(a =>
+        a.level &&
+        a.programme &&
+        a.level.toUpperCase() === programme
+      )
+      .map(a => a.programme.trim())
+  )
+];
 
-  subjects.forEach(sub => {
-    const card = document.createElement("div");
-    card.className = "subject-card";
-    card.innerHTML = `<h3>${sub}</h3>`;
-    card.onclick = () => {
-      window.location.href =
-        "assignments.html?programme=" +
-        programme +
-        "&subject=" +
-        encodeURIComponent(sub);
-    };
-    subjectGrid.appendChild(card);
-  });
+if (subjects.length === 0) {
+  subjectGrid.innerHTML =
+    "<p style='text-align:center;color:#777;'>No subjects found.</p>";
+}
+
+/* Render subject cards */
+subjects.forEach(sub => {
+  const card = document.createElement("div");
+  card.className = "subject-card";
+  card.innerHTML = `<h3>${sub}</h3>`;
+  card.onclick = () => {
+    window.location.href =
+      "assignments.html?programme=" +
+      programme +
+      "&subject=" +
+      encodeURIComponent(sub);
+  };
+  subjectGrid.appendChild(card);
+});
 </script>
 
 </body>
