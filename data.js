@@ -54,6 +54,19 @@ const assignments = [
   { level: "BSC", programme: "Mathematics", course: "TEMP", session: "Jan", file: "#" },
 
   /* =========================
+     MSC – SUBJECT SEED (NEW)
+  ========================== */
+  { level: "MSC", programme: "Geography", course: "TEMP", session: "Jan", file: "#" },
+  { level: "MSC", programme: "Zoology", course: "TEMP", session: "Jan", file: "#" },
+  { level: "MSC", programme: "Geoinformatics", course: "TEMP", session: "Jan", file: "#" },
+  { level: "MSC", programme: "MSCFSQM", course: "TEMP", session: "Jan", file: "#" },
+  { level: "MSC", programme: "Applied Statistics", course: "TEMP", session: "Jan", file: "#" },
+  { level: "MSC", programme: "Chemistry", course: "TEMP", session: "Jan", file: "#" },
+  { level: "MSC", programme: "Environmental Science", course: "TEMP", session: "Jan", file: "#" },
+  { level: "MSC", programme: "Botany", course: "TEMP", session: "Jan", file: "#" },
+  { level: "MSC", programme: "MSc IDS", course: "TEMP", session: "Jan", file: "#" },
+
+  /* =========================
      DIPLOMA
   ========================== */
   { level: "DIPLOMA", programme: "Tourism", course: "TEMP", session: "Jan", file: "#" }
