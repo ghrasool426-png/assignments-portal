@@ -5,7 +5,7 @@
   <title>IGNOU Solved Assignments</title>
 
   <meta name="description"
-        content="Download IGNOU solved assignments subject-wise for MA, BA, BSc and Diploma programmes.">
+        content="Download IGNOU solved assignments subject-wise for MA, BA, BSc, MSc and Diploma programmes.">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
@@ -22,10 +22,10 @@
 
   <p class="seo-text" id="seoText"></p>
 
-  <!-- MA CONTENT -->
-  <div id="maContent"></div>
+  <!-- MA / MSC CONTENT -->
+  <div id="paidContent"></div>
 
-  <!-- OTHER PROGRAMMES -->
+  <!-- BA / BSc / Diploma -->
   <div id="assignmentList"></div>
 
 </section>
@@ -41,8 +41,8 @@ const subject   = decodeURIComponent(params.get("subject") || "")
                     .trim()
                     .replace(/\s+/g, " ");
 
-const maBox = document.getElementById("maContent");
-const list  = document.getElementById("assignmentList");
+const paidBox = document.getElementById("paidContent");
+const list    = document.getElementById("assignmentList");
 
 /* ============ BASIC SAFETY ============ */
 if (!programme || !subject) {
@@ -55,7 +55,7 @@ if (!programme || !subject) {
     `IGNOU ${programme} ${subject} Assignments`;
 
   document.getElementById("pageSubtitle").innerText =
-    programme === "MA"
+    (programme === "MA" || programme === "MSC")
       ? "1st Year & 2nd Year Solved Assignments"
       : "Solved Assignments";
 
@@ -122,13 +122,26 @@ if (!programme || !subject) {
     }
   };
 
-  /* ============ MA (PAID SYSTEM) ============ */
+  /* ============ MSC SUBJECTS (NO RISK) ============ */
+  const mscSubjects = [
+    "Geography",
+    "Zoology",
+    "Geoinformatics",
+    "MSCFSQM",
+    "Applied Statistics",
+    "Chemistry",
+    "Environmental Science",
+    "Botany",
+    "MSC IDS"
+  ];
+
+  /* ============ MA PAID ============ */
   if (programme === "MA" && maCourseCodes[subject]) {
 
     const y1 = maCourseCodes[subject].y1.map(c => `<li>${c}</li>`).join("");
     const y2 = maCourseCodes[subject].y2.map(c => `<li>${c}</li>`).join("");
 
-    maBox.innerHTML = `
+    paidBox.innerHTML = `
       <div class="lock-box">
         <h3>MA ${subject} – 1st Year</h3>
         <ul>${y1}</ul>
@@ -147,10 +160,34 @@ if (!programme || !subject) {
           target="_blank">Unlock on WhatsApp</a>
       </div>
     `;
+  }
 
-  } else {
+  /* ============ MSC PAID ============ */
+  else if (programme === "MSC" && mscSubjects.includes(subject)) {
 
-    /* ============ BA / BSc / Diploma ============ */
+    paidBox.innerHTML = `
+      <div class="lock-box">
+        <h3>MSc ${subject} – 1st Year</h3>
+        <p>Solved Assignments</p>
+        <b>₹49 Only</b><br><br>
+        <a class="unlock-btn"
+          href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MSc%20${subject}%201st%20Year%20Solved%20Assignments"
+          target="_blank">Unlock on WhatsApp</a>
+      </div>
+
+      <div class="lock-box" style="margin-top:20px;">
+        <h3>MSc ${subject} – 2nd Year</h3>
+        <p>Solved Assignments</p>
+        <b>₹49 Only</b><br><br>
+        <a class="unlock-btn"
+          href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MSc%20${subject}%202nd%20Year%20Solved%20Assignments"
+          target="_blank">Unlock on WhatsApp</a>
+      </div>
+    `;
+  }
+
+  /* ============ BA / BSc / Diploma ============ */
+  else {
     const filtered = assignments.filter(item =>
       item.level &&
       item.programme &&
