@@ -2,88 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title id="seoTitle">IGNOU Subjects</title>
-
-  <meta name="description" id="seoDescription"
-        content="IGNOU subject-wise solved assignments">
-
+  <title>SUBJECT TEST</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial; padding:20px }
+    .card { padding:15px; margin:10px 0; background:#f4f4f4; border-radius:6px; cursor:pointer }
+  </style>
 </head>
 
 <body>
 
-<header class="main-header">
-  <h1 id="programmeTitle">Subjects</h1>
-  <p id="programmeSubtitle">Select your subject</p>
-</header>
+<h1>MA Subjects (Hard Test)</h1>
 
-<section class="subject-section">
-  <div id="subjectGrid" class="subject-grid"></div>
-</section>
-
-<!-- LOAD DATA -->
-<script src="data.js"></script>
+<div id="subjectGrid"></div>
 
 <script>
-/* ================= BASIC DOM ================= */
-const grid = document.getElementById("subjectGrid");
-const title = document.getElementById("programmeTitle");
-const subtitle = document.getElementById("programmeSubtitle");
+  const subjects = [
+    "English",
+    "Hindi",
+    "Urdu",
+    "Political Science",
+    "History",
+    "Sociology",
+    "Psychology",
+    "Economics",
+    "Public Administration",
+    "Education",
+    "Philosophy",
+    "Anthropology",
+    "Rural Development",
+    "Journalism"
+  ];
 
-/* ================= READ URL ================= */
-const params = new URLSearchParams(window.location.search);
-const programme = (params.get("programme") || "").trim().toUpperCase();
+  const grid = document.getElementById("subjectGrid");
 
-/* ================= PROGRAMME CHECK ================= */
-if (!programme) {
-  title.innerText = "No Programme";
-  grid.innerHTML =
-    "<p style='text-align:center;color:#777;'>Programme not selected.</p>";
-  throw new Error("Programme missing");
-}
-
-title.innerText = programme + " Subjects";
-subtitle.innerText = "Choose a subject for " + programme;
-
-/* ================= DATA.JS SAFETY CHECK ================= */
-if (typeof assignments === "undefined") {
-  grid.innerHTML =
-    "<p style='text-align:center;color:red;'>Error: data.js not loaded</p>";
-  throw new Error("assignments not defined");
-}
-
-/* ================= SUBJECT LIST ================= */
-const subjects = [
-  ...new Set(
-    assignments
-      .filter(a =>
-        a.level &&
-        a.programme &&
-        a.level.toUpperCase() === programme
-      )
-      .map(a => a.programme)
-  )
-];
-
-/* ================= NO SUBJECT CASE ================= */
-if (subjects.length === 0) {
-  grid.innerHTML =
-    "<p style='text-align:center;color:#777;'>No subjects found.</p>";
-}
-
-/* ================= RENDER CARDS ================= */
-subjects.forEach(sub => {
-  const card = document.createElement("div");
-  card.className = "subject-card";
-  card.innerHTML = `<h3>${sub}</h3>`;
-  card.onclick = () => {
-    window.location.href =
-      `assignments.html?programme=${programme}&subject=${encodeURIComponent(sub)}`;
-  };
-  grid.appendChild(card);
-});
+  subjects.forEach(sub => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerText = sub;
+    grid.appendChild(div);
+  });
 </script>
 
 </body>
