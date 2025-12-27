@@ -22,7 +22,7 @@
 
   <p class="seo-text" id="seoText"></p>
 
-  <!-- MA / MSC PAID CONTENT -->
+  <!-- PAID CONTENT -->
   <div id="paidContent"></div>
 
   <!-- FREE CONTENT -->
@@ -33,22 +33,17 @@
 <script src="data.js"></script>
 
 <script>
-/* ================= READ URL ================= */
+/* ================= READ URL (SAFE) ================= */
 const params = new URLSearchParams(window.location.search);
 
-const programme = (params.get("programme") || "").trim().toUpperCase();
-const subject = decodeURIComponent(params.get("subject") || "")
-  .trim()
-  .replace(/\s+/g, " ");
+const programmeRaw = params.get("programme") || "";
+const subjectRaw   = params.get("subject") || "";
+
+const programme = programmeRaw.trim().toUpperCase();
+const subject   = decodeURIComponent(subjectRaw).trim();
 
 const paidBox = document.getElementById("paidContent");
-const list = document.getElementById("assignmentList");
-
-/* ================= SAFETY ================= */
-if (!programme || !subject) {
-  list.innerHTML = "<p style='text-align:center;color:#777;'>Invalid page</p>";
-  throw new Error("Invalid URL");
-}
+const list    = document.getElementById("assignmentList");
 
 /* ================= HEADER ================= */
 document.getElementById("pageTitle").innerText =
@@ -62,101 +57,93 @@ document.getElementById("pageSubtitle").innerText =
 document.getElementById("seoText").innerText =
   `Download IGNOU ${programme} ${subject} solved assignments.`;
 
-/* ================= MA COURSE CODES ================= */
-const maCourseCodes = {
-  "English": [["MEG-01","MEG-02","MEG-03","MEG-04"],["MEG-05","MEG-06","MEG-07","MEG-08"]],
-  "Hindi": [["MHD-01","MHD-02","MHD-03","MHD-04"],["MHD-05","MHD-06","MHD-07","MHD-08"]],
-  "Urdu": [["MUD-01","MUD-02","MUD-03","MUD-04"],["MUD-05","MUD-06","MUD-07","MUD-08"]],
-  "Political Science": [["MPS-01","MPS-02","MPS-03","MPS-04"],["MPS-05","MPS-06","MPS-07","MPS-08"]],
-  "History": [["MAH-01","MAH-02","MAH-03","MAH-04"],["MAH-05","MAH-06","MAH-07","MAH-08"]],
-  "Sociology": [["MSO-01","MSO-02","MSO-03","MSO-04"],["MSO-05","MSO-06","MSO-07","MSO-08"]],
-  "Psychology": [["MAPC-01","MAPC-02","MAPC-03","MAPC-04"],["MAPC-05","MAPC-06","MAPC-07","MAPC-08"]],
-  "Economics": [["MEC-01","MEC-02","MEC-03","MEC-04"],["MEC-05","MEC-06","MEC-07","MEC-08"]],
-  "Public Administration": [["MPA-01","MPA-02","MPA-03","MPA-04"],["MPA-05","MPA-06","MPA-07","MPA-08"]],
-  "Education": [["MAEDU-01","MAEDU-02","MAEDU-03","MAEDU-04"],["MAEDU-05","MAEDU-06","MAEDU-07","MAEDU-08"]],
-  "Philosophy": [["MAPY-01","MAPY-02","MAPY-03","MAPY-04"],["MAPY-05","MAPY-06","MAPY-07","MAPY-08"]],
-  "Anthropology": [["MANT-01","MANT-02","MANT-03","MANT-04"],["MANT-05","MANT-06","MANT-07","MANT-08"]],
-  "Rural Development": [["MARD-01","MARD-02","MARD-03","MARD-04"],["MARD-05","MARD-06","MARD-07","MARD-08"]],
-  "Journalism": [["MAJMC-01","MAJMC-02","MAJMC-03","MAJMC-04"],["MAJMC-05","MAJMC-06","MAJMC-07","MAJMC-08"]]
+/* ================= NORMALIZER ================= */
+function key(s) {
+  return s.toLowerCase().replace(/\s+/g,"");
+}
+
+/* ================= MA COURSES ================= */
+const maCourses = {
+  english: [["MEG-01","MEG-02","MEG-03","MEG-04"],["MEG-05","MEG-06","MEG-07","MEG-08"]],
+  hindi: [["MHD-01","MHD-02","MHD-03","MHD-04"],["MHD-05","MHD-06","MHD-07","MHD-08"]],
+  urdu: [["MUD-01","MUD-02","MUD-03","MUD-04"],["MUD-05","MUD-06","MUD-07","MUD-08"]],
+  politicalscience: [["MPS-01","MPS-02","MPS-03","MPS-04"],["MPS-05","MPS-06","MPS-07","MPS-08"]],
+  history: [["MAH-01","MAH-02","MAH-03","MAH-04"],["MAH-05","MAH-06","MAH-07","MAH-08"]],
+  sociology: [["MSO-01","MSO-02","MSO-03","MSO-04"],["MSO-05","MSO-06","MSO-07","MSO-08"]],
+  psychology: [["MAPC-01","MAPC-02","MAPC-03","MAPC-04"],["MAPC-05","MAPC-06","MAPC-07","MAPC-08"]],
+  economics: [["MEC-01","MEC-02","MEC-03","MEC-04"],["MEC-05","MEC-06","MEC-07","MEC-08"]],
+  publicadministration: [["MPA-01","MPA-02","MPA-03","MPA-04"],["MPA-05","MPA-06","MPA-07","MPA-08"]],
+  education: [["MAEDU-01","MAEDU-02","MAEDU-03","MAEDU-04"],["MAEDU-05","MAEDU-06","MAEDU-07","MAEDU-08"]],
+  philosophy: [["MAPY-01","MAPY-02","MAPY-03","MAPY-04"],["MAPY-05","MAPY-06","MAPY-07","MAPY-08"]],
+  anthropology: [["MANT-01","MANT-02","MANT-03","MANT-04"],["MANT-05","MANT-06","MANT-07","MANT-08"]],
+  ruraldevelopment: [["MARD-01","MARD-02","MARD-03","MARD-04"],["MARD-05","MARD-06","MARD-07","MARD-08"]],
+  journalism: [["MAJMC-01","MAJMC-02","MAJMC-03","MAJMC-04"],["MAJMC-05","MAJMC-06","MAJMC-07","MAJMC-08"]]
 };
 
-/* ================= MSC COURSE CODES ================= */
-const mscCourseCodes = {
-  "Geography": [["MGG-01","MGG-02","MGG-03","MGG-04"],["MGG-05","MGG-06","MGG-07","MGG-08"]],
-  "Zoology": [["MZO-01","MZO-02","MZO-03","MZO-04"],["MZO-05","MZO-06","MZO-07","MZO-08"]],
-  "Geoinformatics": [["MGI-01","MGI-02","MGI-03","MGI-04"],["MGI-05","MGI-06","MGI-07","MGI-08"]],
-  "MSCFSQM": [["MFSM-01","MFSM-02","MFSM-03","MFSM-04"],["MFSM-05","MFSM-06","MFSM-07","MFSM-08"]],
-  "Applied Statistics": [["MSTA-01","MSTA-02","MSTA-03","MSTA-04"],["MSTA-05","MSTA-06","MSTA-07","MSTA-08"]],
-  "Chemistry": [["MCH-01","MCH-02","MCH-03","MCH-04"],["MCH-05","MCH-06","MCH-07","MCH-08"]],
-  "Environmental Science": [["MEVS-01","MEVS-02","MEVS-03","MEVS-04"],["MEVS-05","MEVS-06","MEVS-07","MEVS-08"]],
-  "Botany": [["MBOT-01","MBOT-02","MBOT-03","MBOT-04"],["MBOT-05","MBOT-06","MBOT-07","MBOT-08"]],
-  "MSC IDS": [["MIDS-01","MIDS-02","MIDS-03","MIDS-04"],["MIDS-05","MIDS-06","MIDS-07","MIDS-08"]]
+/* ================= MSC COURSES ================= */
+const mscCourses = {
+  geography: [["MGG-01","MGG-02","MGG-03","MGG-04"],["MGG-05","MGG-06","MGG-07","MGG-08"]],
+  zoology: [["MZO-01","MZO-02","MZO-03","MZO-04"],["MZO-05","MZO-06","MZO-07","MZO-08"]],
+  geoinformatics: [["MGI-01","MGI-02","MGI-03","MGI-04"],["MGI-05","MGI-06","MGI-07","MGI-08"]],
+  mscfsqm: [["MFSM-01","MFSM-02","MFSM-03","MFSM-04"],["MFSM-05","MFSM-06","MFSM-07","MFSM-08"]],
+  appliedstatistics: [["MSTA-01","MSTA-02","MSTA-03","MSTA-04"],["MSTA-05","MSTA-06","MSTA-07","MSTA-08"]],
+  chemistry: [["MCH-01","MCH-02","MCH-03","MCH-04"],["MCH-05","MCH-06","MCH-07","MCH-08"]],
+  environmentalscience: [["MEVS-01","MEVS-02","MEVS-03","MEVS-04"],["MEVS-05","MEVS-06","MEVS-07","MEVS-08"]],
+  botany: [["MBOT-01","MBOT-02","MBOT-03","MBOT-04"],["MBOT-05","MBOT-06","MBOT-07","MBOT-08"]],
+  mscids: [["MIDS-01","MIDS-02","MIDS-03","MIDS-04"],["MIDS-05","MIDS-06","MIDS-07","MIDS-08"]]
 };
 
-/* ================= PAID RENDER FUNCTION ================= */
+/* ================= RENDER PAID ================= */
 function renderPaid(label, data) {
-  const y1 = data[0].map(c => `<li>${c}</li>`).join("");
-  const y2 = data[1].map(c => `<li>${c}</li>`).join("");
-
   paidBox.innerHTML = `
     <div class="lock-box">
       <h3>${label} ${subject} – 1st Year</h3>
-      <ul>${y1}</ul>
+      <ul>${data[0].map(c=>`<li>${c}</li>`).join("")}</ul>
       <b>₹49 Only</b><br><br>
       <a class="unlock-btn"
-        href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20${label}%20${subject}%201st%20Year%20Solved%20Assignments"
+        href="https://wa.me/9149489238"
         target="_blank">Unlock on WhatsApp</a>
     </div>
 
     <div class="lock-box" style="margin-top:20px;">
       <h3>${label} ${subject} – 2nd Year</h3>
-      <ul>${y2}</ul>
+      <ul>${data[1].map(c=>`<li>${c}</li>`).join("")}</ul>
       <b>₹49 Only</b><br><br>
       <a class="unlock-btn"
-        href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20${label}%20${subject}%202nd%20Year%20Solved%20Assignments"
+        href="https://wa.me/9149489238"
         target="_blank">Unlock on WhatsApp</a>
     </div>
   `;
 }
 
-/* ===== MA ===== */
-if (programme === "MA" && maCourseCodes[subject]) {
-  renderPaid("MA", maCourseCodes[subject]);
+/* ================= MA ================= */
+if (programme === "MA" && maCourses[key(subject)]) {
+  renderPaid("MA", maCourses[key(subject)]);
   return;
 }
 
-/* ===== MSC ===== */
-if (programme === "MSC" && mscCourseCodes[subject]) {
-  renderPaid("MSc", mscCourseCodes[subject]);
+/* ================= MSC ================= */
+if (programme === "MSC" && mscCourses[key(subject)]) {
+  renderPaid("MSc", mscCourses[key(subject)]);
   return;
 }
 
-/* ================= FREE PROGRAMMES ================= */
-const filtered = assignments.filter(item =>
-  item.level &&
-  item.programme &&
-  item.level.toUpperCase() === programme &&
-  item.programme.toLowerCase() === subject.toLowerCase()
+/* ================= FREE ================= */
+const filtered = assignments.filter(a =>
+  a.level.toUpperCase() === programme &&
+  a.programme.toLowerCase() === subject.toLowerCase()
 );
 
 if (filtered.length === 0) {
-  list.innerHTML =
-    "<p style='text-align:center;color:#777;'>Assignments will be updated soon.</p>";
+  list.innerHTML = "<p style='text-align:center;color:#777;'>Assignments will be updated soon.</p>";
 } else {
   filtered.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    if (item.course === "TEMP") {
-      card.innerHTML = `<b>${subject}</b><br><span style="color:#999;">Coming Soon</span>`;
-    } else {
-      card.innerHTML = `
+    list.innerHTML += `
+      <div class="card">
         <b>${item.course}</b><br>
         Session: ${item.session}<br><br>
         <a class="btn" href="${item.file}" target="_blank">Download PDF</a>
-      `;
-    }
-    list.appendChild(card);
+      </div>`;
   });
 }
 </script>
