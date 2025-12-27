@@ -18,80 +18,57 @@
   <div id="subjectGrid" class="subject-grid"></div>
 </section>
 
-<script src="data.js"></script>
-
 <script>
-/* ========= READ PROGRAMME ========= */
 const params = new URLSearchParams(window.location.search);
-const programme = (params.get("programme") || "").trim().toUpperCase();
+const programme = (params.get("programme") || "").toUpperCase();
 
 const title = document.getElementById("programmeTitle");
 const grid = document.getElementById("subjectGrid");
 
-/* ========= TITLE ========= */
 if (!programme) {
   title.innerText = "Subjects";
-  grid.innerHTML = "<p style='text-align:center'>No programme selected</p>";
-  throw new Error("Programme missing");
+  grid.innerHTML =
+    "<p style='text-align:center;color:#777;'>Programme missing in URL</p>";
+  console.log("Open with ?programme=MA");
 }
 
-title.innerText = programme + " Subjects";
-
-/* ========= HARD SUBJECTS (PAID) ========= */
-const maSubjects = [
+/* HARD SUBJECT LIST */
+const MA = [
   "English","Hindi","Urdu","Political Science","History","Sociology",
   "Psychology","Economics","Public Administration","Education",
   "Philosophy","Anthropology","Rural Development","Journalism"
 ];
 
-const mscSubjects = [
-  "Geography",
-  "Zoology",
-  "Geoinformatics",
-  "MSCFSQM",
-  "Applied Statistics",
-  "Chemistry",
-  "Environmental Science",
-  "Botany",
-  "MSC IDS"
+const MSC = [
+  "Geography","Zoology","Geoinformatics","MSCFSQM",
+  "Applied Statistics","Chemistry","Environmental Science",
+  "Botany","MSC IDS"
 ];
 
-/* ========= RENDER FUNCTION ========= */
-function renderSubjects(subjects) {
+function render(list) {
   grid.innerHTML = "";
-  subjects.forEach(sub => {
-    const card = document.createElement("a");
-    card.className = "subject-card";
-    card.href =
+  list.forEach(sub => {
+    const a = document.createElement("a");
+    a.className = "subject-card";
+    a.href =
       `assignments.html?programme=${programme}&subject=${encodeURIComponent(sub)}`;
-    card.innerHTML = `<h3>${sub}</h3>`;
-    grid.appendChild(card);
+    a.innerHTML = `<h3>${sub}</h3>`;
+    grid.appendChild(a);
   });
 }
 
-/* ========= PROGRAMME SWITCH ========= */
 if (programme === "MA") {
-  renderSubjects(maSubjects);
-  return;
+  title.innerText = "MA Subjects";
+  render(MA);
 }
-
-if (programme === "MSC") {
-  renderSubjects(mscSubjects);
-  return;
+else if (programme === "MSC") {
+  title.innerText = "MSc Subjects";
+  render(MSC);
 }
-
-/* ========= FREE PROGRAMMES (BA / BSC / DIPLOMA) ========= */
-const subjects = [...new Set(
-  assignments
-    .filter(a => a.level && a.level.toUpperCase() === programme)
-    .map(a => a.programme.trim())
-)];
-
-if (subjects.length === 0) {
+else {
+  title.innerText = programme + " Subjects";
   grid.innerHTML =
-    "<p style='text-align:center;color:#777;'>No subjects found</p>";
-} else {
-  renderSubjects(subjects);
+    "<p style='text-align:center;color:#777;'>Subjects will be added soon</p>";
 }
 </script>
 
