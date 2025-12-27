@@ -2,14 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
   <title>IGNOU Solved Assignments</title>
 
   <meta name="description"
         content="Download IGNOU solved assignments subject-wise for MA, BA, BSc and Diploma programmes.">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -35,102 +33,100 @@
 <script src="data.js"></script>
 
 <script>
-/* ================= READ URL ================= */
+/* ============ READ & NORMALISE URL ============ */
 const params = new URLSearchParams(window.location.search);
-const programme = params.get("programme");
-const subject = params.get("subject");
+
+const programme = (params.get("programme") || "").trim().toUpperCase();
+const subject   = decodeURIComponent(params.get("subject") || "")
+                    .trim()
+                    .replace(/\s+/g, " ");
 
 const maBox = document.getElementById("maContent");
-const list = document.getElementById("assignmentList");
+const list  = document.getElementById("assignmentList");
 
-/* ================= SAFETY CHECK ================= */
+/* ============ BASIC SAFETY ============ */
 if (!programme || !subject) {
-  list.innerHTML = "<p style='text-align:center;color:#777;'>Invalid page</p>";
-}
-
-/* ================= HEADER ================= */
-document.getElementById("pageTitle").innerText =
-  `IGNOU ${programme} ${subject} Assignments`;
-
-document.getElementById("pageSubtitle").innerText =
-  programme === "MA"
-    ? "1st Year & 2nd Year Solved Assignments"
-    : "Solved Assignments";
-
-/* ================= MA PAID SYSTEM ================= */
-const maCourses = {
-  "English": true,
-  "Hindi": true,
-  "Urdu": true,
-  "Political Science": true,
-  "History": true,
-  "Sociology": true,
-  "Psychology": true,
-  "Economics": true,
-  "Public Administration": true,
-  "Education": true,
-  "Philosophy": true,
-  "Anthropology": true,
-  "Rural Development": true,
-  "Journalism": true
-};
-
-if (programme === "MA" && maCourses[subject]) {
-
-  maBox.innerHTML = `
-    <div class="lock-box">
-      <h3>MA ${subject} – 1st Year</h3>
-      <p>4 Solved Assignments</p>
-      <b>₹49 Only</b><br><br>
-      <a class="unlock-btn"
-        href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%201st%20Year%20Solved%20Assignments."
-        target="_blank">Unlock on WhatsApp</a>
-    </div>
-
-    <div class="lock-box" style="margin-top:20px;">
-      <h3>MA ${subject} – 2nd Year</h3>
-      <p>4 Solved Assignments</p>
-      <b>₹49 Only</b><br><br>
-      <a class="unlock-btn"
-        href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%202nd%20Year%20Solved%20Assignments."
-        target="_blank">Unlock on WhatsApp</a>
-    </div>
-  `;
-
-  list.innerHTML = "";
-  return;
-}
-
-/* ================= BA / BSc / DIPLOMA ================= */
-const filtered = assignments.filter(item =>
-  item.level === programme &&
-  item.programme === subject
-);
-
-if (filtered.length === 0) {
   list.innerHTML =
-    "<p style='text-align:center;color:#777;'>Assignments will be updated soon.</p>";
-}
-else {
-  filtered.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "card";
+    "<p style='text-align:center;color:#777;'>Invalid page</p>";
+} else {
 
-    if (item.course === "TEMP") {
-      card.innerHTML = `
-        <b>${subject}</b><br>
-        <span style="color:#999;">Coming Soon</span>
-      `;
+  /* ============ HEADER ============ */
+  document.getElementById("pageTitle").innerText =
+    `IGNOU ${programme} ${subject} Assignments`;
+
+  document.getElementById("pageSubtitle").innerText =
+    programme === "MA"
+      ? "1st Year & 2nd Year Solved Assignments"
+      : "Solved Assignments";
+
+  document.getElementById("seoText").innerText =
+    `Download IGNOU ${programme} ${subject} solved assignments.`;
+
+  /* ============ MA SUBJECT LIST ============ */
+  const maSubjects = [
+    "English","Hindi","Urdu","Political Science","History","Sociology",
+    "Psychology","Economics","Public Administration","Education",
+    "Philosophy","Anthropology","Rural Development","Journalism"
+  ];
+
+  /* ============ MA (PAID) ============ */
+  if (programme === "MA" && maSubjects.includes(subject)) {
+
+    maBox.innerHTML = `
+      <div class="lock-box">
+        <h3>MA ${subject} – 1st Year</h3>
+        <p>4 Solved Assignments</p>
+        <b>₹49 Only</b><br><br>
+        <a class="unlock-btn"
+          href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%201st%20Year%20Solved%20Assignments"
+          target="_blank">Unlock on WhatsApp</a>
+      </div>
+
+      <div class="lock-box" style="margin-top:20px;">
+        <h3>MA ${subject} – 2nd Year</h3>
+        <p>4 Solved Assignments</p>
+        <b>₹49 Only</b><br><br>
+        <a class="unlock-btn"
+          href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20MA%20${subject}%202nd%20Year%20Solved%20Assignments"
+          target="_blank">Unlock on WhatsApp</a>
+      </div>
+    `;
+
+  } else {
+
+    /* ============ BA / BSc / Diploma ============ */
+    const filtered = assignments.filter(item =>
+      item.level &&
+      item.programme &&
+      item.level.toUpperCase() === programme &&
+      item.programme.toLowerCase() === subject.toLowerCase()
+    );
+
+    if (filtered.length === 0) {
+      list.innerHTML =
+        "<p style='text-align:center;color:#777;'>Assignments will be updated soon.</p>";
     } else {
-      card.innerHTML = `
-        <b>${item.course}</b><br>
-        Session: ${item.session}<br><br>
-        <a class="btn" href="${item.file}" target="_blank">Download PDF</a>
-      `;
-    }
+      filtered.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "card";
 
-    list.appendChild(card);
-  });
+        if (item.course === "TEMP") {
+          card.innerHTML = `
+            <b>${subject}</b><br>
+            <span style="color:#999;">Coming Soon</span>
+          `;
+        } else {
+          card.innerHTML = `
+            <b>${item.course}</b><br>
+            Session: ${item.session}<br><br>
+            <a class="btn" href="${item.file}" target="_blank">Download PDF</a>
+          `;
+        }
+
+        list.appendChild(card);
+      });
+    }
+  }
 }
 </script>
 
