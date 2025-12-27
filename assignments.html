@@ -35,30 +35,34 @@ const list = document.getElementById("assignmentList");
 
 /* ===== HEADER ===== */
 document.getElementById("pageTitle").innerText =
-  `IGNOU ${programme} ${rawSubject ? rawSubject : ""} Assignments`;
+  `IGNOU ${programme} ${rawSubject || ""} Assignments`;
 
-document.getElementById("pageSubtitle").innerText =
-  (programme==="MA"||programme==="MSC"||programme==="BBA")
-  ? "Solved Assignments"
-  : "Solved Assignments";
+document.getElementById("pageSubtitle").innerText = "Solved Assignments";
 
-/* ===== MA CODES ===== */
+/* ===== MA ===== */
 const ma = {
   "english":[["MEG-01","MEG-02","MEG-03","MEG-04"],["MEG-05","MEG-06","MEG-07","MEG-08"]],
   "hindi":[["MHD-01","MHD-02","MHD-03","MHD-04"],["MHD-05","MHD-06","MHD-07","MHD-08"]],
   "urdu":[["MUD-01","MUD-02","MUD-03","MUD-04"],["MUD-05","MUD-06","MUD-07","MUD-08"]]
 };
 
-/* ===== MSC CODES ===== */
+/* ===== MSC ===== */
 const msc = {
   "geography":[["MGG-01","MGG-02","MGG-03","MGG-04"],["MGG-05","MGG-06","MGG-07","MGG-08"]]
 };
 
-/* ===== BBA CODES ===== */
+/* ===== BBA ===== */
 const bba = [
   ["BBA-101","BBA-102","BBA-103","BBA-104"],
   ["BBA-201","BBA-202","BBA-203","BBA-204"],
   ["BBA-301","BBA-302","BBA-303","BBA-304"]
+];
+
+/* ===== BA SOCIOLOGY (SINGLE @9) ===== */
+const baSociology = [
+  "BSOC-131","BSOC-132","BSOC-133","BSOC-134",
+  "BSOE-141","BSOE-142","BSOE-143","BSOE-144",
+  "BSOE-145","BSOE-146","BSOE-148"
 ];
 
 function paid(label, years){
@@ -83,6 +87,17 @@ else if(programme==="MSC" && msc[subject]){
 }
 else if(programme==="BBA"){
   paid("BBA", bba);
+}
+else if(programme==="BA" && subject==="sociology"){
+  paidBox.innerHTML = baSociology.map(code=>`
+    <div class="lock-box">
+      <h3>${code}</h3>
+      <b>₹9 Only</b><br><br>
+      <a class="unlock-btn"
+        href="https://wa.me/9149489238?text=Hi,%20I%20want%20IGNOU%20BA%20Sociology%20${code}%20Solved%20Assignment"
+        target="_blank">Unlock on WhatsApp</a>
+    </div>
+  `).join("");
 }
 else{
   list.innerHTML =
