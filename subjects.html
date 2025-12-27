@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- Dynamic SEO Title -->
+  <!-- SEO TITLE -->
   <title id="seoTitle">IGNOU Subjects</title>
 
-  <!-- Dynamic SEO Description -->
+  <!-- SEO DESCRIPTION -->
   <meta name="description" id="seoDescription"
         content="Browse IGNOU subject-wise solved assignments for MA, BA, BSc and Diploma programmes.">
 
-  <!-- Mobile -->
+  <!-- MOBILE -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Canonical -->
+  <!-- CANONICAL -->
   <link rel="canonical" href="https://ghrasool426-png.github.io/assignments-portal/subjects.html">
 
   <!-- CSS -->
@@ -25,7 +25,7 @@
 <!-- ===== HEADER ===== -->
 <header class="main-header">
   <h1 id="programmeTitle">Subjects</h1>
-  <p id="programmeSubtitle">Select your subject to view assignments</p>
+  <p id="programmeSubtitle">Choose a subject</p>
 </header>
 
 <!-- ===== SUBJECT SECTION ===== -->
@@ -38,20 +38,19 @@
 <script src="data.js"></script>
 
 <script>
-/* ================= SAFE URL READ ================= */
+/* ================= READ URL ================= */
 const params = new URLSearchParams(window.location.search);
+const programme = (params.get("programme") || "").toUpperCase();
 
-const programme = (params.get("programme") || "IGNOU")
-  .trim()
-  .toUpperCase();
+const subjectGrid = document.getElementById("subjectGrid");
 
-/* ================= SEO + HEADINGS ================= */
+/* ================= SEO ================= */
 document.getElementById("seoTitle").innerText =
   `IGNOU ${programme} Subjects | Solved Assignments`;
 
 document.getElementById("seoDescription").setAttribute(
   "content",
-  `Download IGNOU ${programme} subject-wise solved assignments for January and July sessions.`
+  `Browse IGNOU ${programme} subject-wise solved assignments for latest sessions.`
 );
 
 document.getElementById("programmeTitle").innerText =
@@ -60,41 +59,66 @@ document.getElementById("programmeTitle").innerText =
 document.getElementById("programmeSubtitle").innerText =
   "Choose a subject for " + programme + " programme";
 
-/* ================= SUBJECT CARDS ================= */
-const subjectGrid = document.getElementById("subjectGrid");
+/* ================= MA SUBJECTS (MANUAL) ================= */
+if (programme === "MA") {
 
-/* Collect unique subjects safely */
-const subjects = [
-  ...new Set(
-    assignments
-      .filter(a =>
-        a.level &&
-        a.programme &&
-        a.level.toUpperCase() === programme
-      )
-      .map(a => a.programme.trim())
-  )
-];
+  const maSubjects = [
+    "English",
+    "Hindi",
+    "Urdu",
+    "Political Science",
+    "History",
+    "Sociology",
+    "Psychology",
+    "Economics",
+    "Public Administration",
+    "Education",
+    "Philosophy",
+    "Anthropology",
+    "Rural Development",
+    "Journalism"
+  ];
 
-if (subjects.length === 0) {
-  subjectGrid.innerHTML =
-    "<p style='text-align:center;color:#777;'>No subjects found.</p>";
+  maSubjects.forEach(sub => {
+    const card = document.createElement("div");
+    card.className = "subject-card";
+    card.innerHTML = `<h3>${sub}</h3>`;
+    card.onclick = () => {
+      window.location.href =
+        `assignments.html?programme=MA&subject=${encodeURIComponent(sub)}`;
+    };
+    subjectGrid.appendChild(card);
+  });
+
 }
 
-/* Render subject cards */
-subjects.forEach(sub => {
-  const card = document.createElement("div");
-  card.className = "subject-card";
-  card.innerHTML = `<h3>${sub}</h3>`;
-  card.onclick = () => {
-    window.location.href =
-      "assignments.html?programme=" +
-      programme +
-      "&subject=" +
-      encodeURIComponent(sub);
-  };
-  subjectGrid.appendChild(card);
-});
+/* ================= BA / BSC / DIPLOMA (FROM data.js) ================= */
+else {
+
+  const subjects = [
+    ...new Set(
+      assignments
+        .filter(a => a.level === programme)
+        .map(a => a.programme)
+    )
+  ];
+
+  if (subjects.length === 0) {
+    subjectGrid.innerHTML =
+      "<p style='text-align:center;color:#777;'>No subjects found.</p>";
+  }
+
+  subjects.forEach(sub => {
+    const card = document.createElement("div");
+    card.className = "subject-card";
+    card.innerHTML = `<h3>${sub}</h3>`;
+    card.onclick = () => {
+      window.location.href =
+        `assignments.html?programme=${programme}&subject=${encodeURIComponent(sub)}`;
+    };
+    subjectGrid.appendChild(card);
+  });
+}
 </script>
 
 </body>
